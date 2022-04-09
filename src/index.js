@@ -1,5 +1,5 @@
 function test() {
-    console.log('Working! Test Merge')
+    console.log('Working!')
 }
 
 test();
