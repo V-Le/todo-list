@@ -1,6 +1,53 @@
-/**
-BEM STYLING GUIDE
-.block {}               .site-search {}
-.block__element {}      .site-search__field {}
-.block--modifier {}     .site-search--full {}
-**/
+:root {
+    --primary-dark: #333;
+    --primary-light: #eee;
+    --nav-width-full: 300px;
+    --header-height-full: 80px;
+    --footer-height-full: 60px;
+}
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+header {
+    display: flex;
+    height: var(--header-height-full);
+    padding: 30px;
+    background-color: var(--primary-dark);
+}
+
+main {
+    display: flex;
+}
+
+nav {
+    width: var(--nav-width-full);
+    min-width: 250px;
+    padding: 20px;
+    background-color: blue;
+}
+
+.tasks-section {
+    display: flex;
+    min-height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
+    min-width: calc(100vw - var(--nav-width-full));
+    padding: 100px;
+    background-color: #777;
+}
+
+
+footer {
+    display: flex;
+    height: var(--footer-height-full);
+    padding: 20px;
+    background-color: purple;
+}
+

@@ -20,3 +20,5 @@ FUNCTIONS
 - all
 
  */
+
+import './styles/style.css';
