@@ -21,6 +21,7 @@ header {
     display: flex;
     height: var(--header-height-full);
     padding: 30px;
+    color: #eee;
     background-color: var(--primary-dark);
 }
 
