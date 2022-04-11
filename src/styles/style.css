@@ -1,7 +1,10 @@
 :root {
     --primary-dark: #333;
+    --secondary-dark: #444;
     --primary-light: #eee;
-    --nav-width-full: 300px;
+    --secondary-light: #ddd;
+
+    --nav-width-full: 275px;
     --header-height-full: 80px;
     --footer-height-full: 60px;
 }
@@ -10,6 +13,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-size: 1em;
 }
 
 html {
@@ -19,10 +23,20 @@ html {
 
 header {
     display: flex;
+    align-items: center;
     height: var(--header-height-full);
-    padding: 30px;
-    color: #eee;
+    padding: 20px;
+    color: var(--primary-light);
     background-color: var(--primary-dark);
+}
+
+.fa-list-check {
+    font-size: 2.75rem;
+    margin: 0 20px;
+}
+
+h1 {
+    font-size: 2rem;
 }
 
 main {
@@ -31,9 +45,28 @@ main {
 
 nav {
     width: var(--nav-width-full);
-    min-width: 250px;
     padding: 20px;
-    background-color: blue;
+    color: var(--primary-dark);
+    background-color: var(--secondary-light);
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    margin: 25px 15px;
+}
+
+.fa-file,
+.fa-calendar-day,
+.fa-calendar-week,
+.fa-diagram-project {
+    font-size: 1.75rem;
+    width: 35px;
+    margin: 0 10px;
 }
 
 .tasks-section {
@@ -41,14 +74,21 @@ nav {
     min-height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
     min-width: calc(100vw - var(--nav-width-full));
     padding: 100px;
-    background-color: #777;
+    background-color: var(--primary-light);
 }
 
 
 footer {
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: var(--footer-height-full);
     padding: 20px;
-    background-color: purple;
+    color: var(--primary-light);
+    background-color: var(--primary-dark);;
+}
+
+.fa-github {
+    margin: 0 10px;
 }
 
