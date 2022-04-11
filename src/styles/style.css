@@ -1,0 +1,6 @@
+/**
+BEM STYLING GUIDE
+.block {}               .site-search {}
+.block__element {}      .site-search__field {}
+.block--modifier {}     .site-search--full {}
+**/
