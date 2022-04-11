@@ -6,6 +6,7 @@ FUNCTIONS
 ***Base function tile***
 - ADD TASK
 --select multiple box
+- MARK AS COMPLETE
 - TITLE
 - DESCRIPTION
 - DUE DATE
@@ -13,7 +14,7 @@ FUNCTIONS
 - EDIT
 - DELETE
  
-***Day category***
+***Navagation Bar Left***
 - today
 - this week
 - all
