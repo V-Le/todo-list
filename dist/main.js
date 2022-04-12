@@ -116,7 +116,17 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ writeline)\n/* harmony export */ });\nfunction writeline() {\r\n    const tasksSection = document.querySelector('.tasks-section');\r\n\r\n    const taskDiv = document.createElement('div');\r\n    taskDiv.setAttribute('style', 'width: 50px; height: 50px; background-color: red;')\r\n    tasksSection.appendChild(taskDiv);\r\n}\n\n//# sourceURL=webpack://todo-list/./src/components/tasks.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ writeline)\n/* harmony export */ });\n/* harmony import */ var _functions_removeChildren__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functions/removeChildren */ \"./src/functions/removeChildren.js\");\n'../functions/removeChildren.js';\r\n\r\nfunction writeline() {\r\n    (0,_functions_removeChildren__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\r\n    \r\n    const tasksSection = document.querySelector('.tasks-section');\r\n\r\n    const taskDiv = document.createElement('div');\r\n    taskDiv.setAttribute('style', 'width: 50px; height: 50px; background-color: red;')\r\n    tasksSection.appendChild(taskDiv);\r\n}\n\n//# sourceURL=webpack://todo-list/./src/components/tasks.js?");
+
+/***/ }),
+
+/***/ "./src/functions/removeChildren.js":
+/*!*****************************************!*\
+  !*** ./src/functions/removeChildren.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ removeChildren)\n/* harmony export */ });\nfunction removeChildren() {\r\n    const tasksSection = document.querySelector('.tasks-section');\r\n\r\n    while (tasksSection.children.length > 0) {\r\n        tasksSection.children[0].remove();\r\n    }\r\n}\n\n//# sourceURL=webpack://todo-list/./src/functions/removeChildren.js?");
 
 /***/ }),
 
@@ -126,7 +136,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/style.css */ \"./src/styles/style.css\");\n/* harmony import */ var _components_tasks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tasks.js */ \"./src/components/tasks.js\");\n/**\r\nTo do list\r\n================\r\nFUNCTIONS\r\n.............\r\n***Base function tile***\r\n- ADD TASK\r\n--select multiple box\r\n- MARK AS COMPLETE\r\n- TITLE\r\n- DESCRIPTION\r\n- DUE DATE\r\n--priority\r\n- EDIT\r\n- DELETE\r\n \r\n***Navagation Bar Left***\r\n- today\r\n- this week\r\n- all\r\n\r\n */\r\n\r\n\r\n\r\n\r\n\r\nconst taskAll = document.querySelector('#task-all');\r\nconst taskToday = document.querySelector('#task-today');\r\nconst taskWeek = document.querySelector('#task-week');\r\nconst taskProjects = document.querySelector('#task-projects');\r\n\r\ntaskAll.addEventListener('click', _components_tasks_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\r\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/style.css */ \"./src/styles/style.css\");\n/* harmony import */ var _components_tasks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/tasks.js */ \"./src/components/tasks.js\");\n/**\r\nTo do list\r\n================\r\nFUNCTIONS\r\n.............\r\n***Base function tile***\r\n- ADD TASK\r\n--select multiple box\r\n- MARK AS COMPLETE\r\n- TITLE\r\n- DESCRIPTION\r\n- DUE DATE\r\n--priority\r\n- EDIT\r\n- DELETE\r\n \r\n***Navagation Bar Left***\r\n- today\r\n- this week\r\n- all\r\n\r\n */\r\n\r\n\r\n\r\n\r\n\r\nconst taskAll = document.querySelector('#task-all');\r\nconst taskToday = document.querySelector('#task-today');\r\nconst taskWeek = document.querySelector('#task-week');\r\nconst taskProjects = document.querySelector('#task-projects');\r\n\r\n(0,_components_tasks_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\r\n\r\ntaskAll.addEventListener('click', _components_tasks_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\r\n\n\n//# sourceURL=webpack://todo-list/./src/index.js?");
 
 /***/ })
 

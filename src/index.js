@@ -30,4 +30,6 @@ const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
 const taskProjects = document.querySelector('#task-projects');
 
+writeline();
+
 taskAll.addEventListener('click', writeline);

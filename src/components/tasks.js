@@ -1,4 +1,8 @@
+import removeChildren from "../functions/removeChildren";'../functions/removeChildren.js';
+
 export default function writeline() {
+    removeChildren();
+    
     const tasksSection = document.querySelector('.tasks-section');
 
     const taskDiv = document.createElement('div');
