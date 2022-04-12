@@ -53,13 +53,25 @@ nav {
 }
 
 h2 {
-    font-size: 1.75rem;
+    font-size: 1.15rem;
+    margin: 0 15px 0 0;
+}
+
+.nav-button:hover {
+    background-color: #ccc;
+
 }
 
 .nav-button {
     display: flex;
     align-items: center;
-    margin: 25px 15px;
+    margin: 5px 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    color: var(--primary-dark);
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .fa-file,
@@ -68,7 +80,7 @@ h2 {
 .fa-diagram-project {
     font-size: 1.75rem;
     width: 35px;
-    margin: 0 10px;
+    margin: 0 10px 0 0;
 }
 
 /***** MAIN TASK CONTENT *****/
