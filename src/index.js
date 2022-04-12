@@ -33,3 +33,14 @@ const taskProjects = document.querySelector('#task-projects');
 writeline();
 
 taskAll.addEventListener('click', writeline);
+
+
+/*
+
+create initial library array
+
+factory function(titleOfTask, shortDescription, dueDate, priority) 
+    push to array
+
+
+*/
