@@ -64,7 +64,7 @@ function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
 
 function deleteTask()
-    addEventListener to split library array by one object to delete
+    addEventListener to splice library array by one object to delete
 
 function editTask()
     addEventListner for object to display with current values, then save new editted values
@@ -77,5 +77,9 @@ function priorityStyling()
     if (priority == High)
         add class to style task background to red
 
+function taskToday
+    .filter library with today's date
 
+function taskWeek
+    .filter library with week's date
 */
