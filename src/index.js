@@ -56,7 +56,7 @@ Get values from form fields then delete fields
         High
     send to factory function task(title, desc, date, priority)
 
-function display library array of tasks()
+function displayTasks()
     forEach object, create and append child
     SELECTION-BOX  |  Task Title  |  Short Description  |  Date Due  |  Priority  |  EDIT  |  DELETE
 
@@ -77,9 +77,19 @@ function priorityStyling()
     if (priority == High)
         add class to style task background to red
 
-function taskToday
-    .filter library with today's date
+function taskAll()
+    clearSection()
+    displayTask()
+    date.sort()
 
-function taskWeek
-    .filter library with week's date
+function taskToday()
+    clearSection()
+    displayTasks().filter() library with today's date
+    date.sort()
+
+function taskWeek()
+    clearSection()
+    displayTask().filter()
+    date.sort() library with week's date
+
 */
