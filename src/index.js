@@ -37,10 +37,45 @@ taskAll.addEventListener('click', writeline);
 
 /*
 
-create initial library array
+create initial library array = [];
 
-factory function(titleOfTask, shortDescription, dueDate, priority) 
-    push to array
+factory function task(titleOfTask, shortDescription, dueDate, priority)
+    this.title
+    this.desc
+    this.date
+    this.priority
+    push to library array
+
+Get values from form fields then delete fields
+    #title.value
+    #desc.value
+    #date.value
+    #priority.value
+        Low
+        Medium
+        High
+    send to factory function task(title, desc, date, priority)
+
+function display library array of tasks()
+    forEach object, create and append child
+    SELECTION-BOX  |  Task Title  |  Short Description  |  Date Due  |  Priority  |  EDIT  |  DELETE
+
+function markAsComplete()
+    addEventListener to completion icon to add class to style task object greyed out
+
+function deleteTask()
+    addEventListener to split library array by one object to delete
+
+function editTask()
+    addEventListner for object to display with current values, then save new editted values
+
+function priorityStyling()
+    if (priority == Low)
+        add class to style task background to green
+    if (priority == Medium)
+        add class to style task background to yellow
+    if (priority == High)
+        add class to style task background to red
 
 
 */
