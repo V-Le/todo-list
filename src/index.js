@@ -66,6 +66,9 @@ function markAsComplete()
 function deleteTask()
     addEventListener to splice library array by one object to delete
 
+function deleteCheckedTasks()
+    
+
 function editTask()
     addEventListner for object to display with current values, then save new editted values
 
@@ -79,17 +82,21 @@ function priorityStyling()
 
 function taskAll()
     clearSection()
-    displayTask()
     date.sort()
+    displayTask()
 
 function taskToday()
     clearSection()
-    displayTasks().filter() library with today's date
     date.sort()
+    displayTasks().filter() library with today's date
+    
 
 function taskWeek()
     clearSection()
-    displayTask().filter()
-    date.sort() library with week's date
+    date.sort()
+    displayTask().filter() library with week range
+
+function date()
+    return date in readable format    
 
 */
