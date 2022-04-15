@@ -8,7 +8,7 @@ FUNCTIONS
 --select multiple box
 - MARK AS COMPLETE
 - TITLE
-- DESCRIPTION
+- DESCRIPTION (When clicked)
 - DUE DATE
 --priority
 - EDIT
@@ -30,12 +30,12 @@ const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
 const taskProjects = document.querySelector('#task-projects');
 
-writeTaskAll();
+var taskListArray = [];
 
 taskAll.addEventListener('click', writeTaskAll);
 taskToday.addEventListener('click', writeTaskToday);
 
-var taskListArray = [];
+writeTaskAll();
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -47,6 +47,7 @@ function Task(title, description, dueDate, priority) {
 }
 
 const task1 = new Task('Eating and Pooping', 'Exactly the name', 'June 5', 'high');
+const task2 = new Task('Playing Games', 'Yes', 'May 25', 'low');
 
 /*
 Get values from form fields then delete fields
@@ -100,35 +101,34 @@ function clearSection() {
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
     clearSection();
-    
+
     const tasksSection = document.querySelector('.tasks-section');
 
     const taskListTable = document.createElement('table');
     taskListTable.innerHTML =   `<thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Description</th>
                                         <th>Due Date</th>
                                         <th>Priority</th>
                                         <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th>Del</th>
                                     </tr>
-                                </thead>`
+                                </thead>`;
+    tasksSection.appendChild(taskListTable);
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
 
 
-    taskListArray.forEach(task => {
+    taskListArray.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
-        taskListTableRow.innerHTML = `<th>${task.title}</th>
-                                        <th>${task.description}</th>
-                                        <th>${task.dueDate}</th>
-                                        <th>${task.priority}</th>
-                                        <th></th>
-                                        <th>/th>`
-        taskListTableBody.appendChild(taskListTableRow)
-    })
+        taskListTableRow.innerHTML = `<td>${task.title}</td>
+                                        <td>${task.dueDate}</td>
+                                        <td>${task.priority}</td>
+                                        <td id="td-edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                                        <td id="td-trash"><i class="fa-solid fa-trash-can"></i></td>`
+        taskListTableBody.appendChild(taskListTableRow);
+    });
 
     //TaskListTable.setAttribute('style', 'width: 100%; height: auto background-color: red;')
     //tasksSection.appendChild(taskListTable);

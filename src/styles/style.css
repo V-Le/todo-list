@@ -47,14 +47,14 @@ main {
 /***** NAVAGATION BAR *****/
 nav {
     width: var(--nav-width-full);
-    padding: 20px;
+    padding: 20px 0px 20px 20px;
+
     color: var(--primary-dark);
     background-color: var(--secondary-light);
 }
 
 h2 {
     font-size: 1.15rem;
-    margin: 0 15px 0 0;
 }
 
 .nav-button:hover {
@@ -66,7 +66,7 @@ h2 {
     display: flex;
     align-items: center;
     margin: 5px 15px;
-    padding: 10px 15px;
+    padding: 10px 10px;
     border: none;
     border-radius: 10px;
     color: var(--primary-dark);
@@ -86,11 +86,44 @@ h2 {
 /***** MAIN TASK CONTENT *****/
 .tasks-section {
     display: flex;
-    min-height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
-    min-width: calc(100vw - var(--nav-width-full));
+    height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
+    width: calc(100vw - var(--nav-width-full));
     padding: 100px;
     background-color: var(--primary-light);
 }
+
+table {
+    width: 100%;
+    height: 40px;
+    table-layout: fixed;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+thead, td, th {
+    border: 1px solid black;
+}
+
+tbody, tr, td {
+    padding: 5px
+}
+
+/** Title **/
+thead th:nth-child(1) { width: 75%; }
+
+/** DueDate **/
+thead th:nth-child(2) { width: 10%; }
+
+/** Priority **/
+thead th:nth-child(3) { width: 10%; }
+
+/** Edit | Del **/
+thead th:nth-child(4), thead th:nth-child(5) { width: 5%; }
+#td-trash {
+    display: flex;
+    justify-content: center;
+}
+
 
 /***** FOOTER BAR *****/
 footer {
