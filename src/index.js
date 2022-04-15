@@ -103,9 +103,35 @@ function writeTaskAll() {
     
     const tasksSection = document.querySelector('.tasks-section');
 
-    const taskDiv = document.createElement('div');
-    taskDiv.setAttribute('style', 'width: 50px; height: 50px; background-color: red;')
-    tasksSection.appendChild(taskDiv);
+    const taskListTable = document.createElement('table');
+    taskListTable.innerHTML =   `<thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Due Date</th>
+                                        <th>Priority</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>`
+
+    const taskListTableBody = document.createElement('tbody');
+    taskListTable.appendChild(taskListTableBody);
+
+
+    taskListArray.forEach(task => {
+        const taskListTableRow = document.createElement('tr');
+        taskListTableRow.innerHTML = `<th>${task.title}</th>
+                                        <th>${task.description}</th>
+                                        <th>${task.dueDate}</th>
+                                        <th>${task.priority}</th>
+                                        <th></th>
+                                        <th>/th>`
+        taskListTableBody.appendChild(taskListTableRow)
+    })
+
+    //TaskListTable.setAttribute('style', 'width: 100%; height: auto background-color: red;')
+    //tasksSection.appendChild(taskListTable);
 }
 
 //function writeTaskToday()
@@ -117,9 +143,9 @@ function writeTaskToday() {
     
     const tasksSection = document.querySelector('.tasks-section');
 
-    const taskDiv = document.createElement('div');
-    taskDiv.setAttribute('style', 'width: 50px; height: 50px; background-color: blue;')
-    tasksSection.appendChild(taskDiv);
+    const TaskListTable = document.createElement('table');
+    taskDiv.setAttribute('style', 'width: auto; height: auto; background-color: blue;')
+    tasksSection.appendChild(TaskListTable);
 }
 
 /*
