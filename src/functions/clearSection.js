@@ -1,4 +1,4 @@
-export default function removeChildren() {
+export default function clearSection() {
     const tasksSection = document.querySelector('.tasks-section');
 
     while (tasksSection.children.length > 0) {

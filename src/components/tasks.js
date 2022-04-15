@@ -1,7 +1,7 @@
-import removeChildren from "../functions/removeChildren";'../functions/removeChildren.js';
+import clearSection from '../functions/clearSection.js';
 
-export default function writeline() {
-    removeChildren();
+export default function writeTaskAll() {
+    clearSection();
     
     const tasksSection = document.querySelector('.tasks-section');
 
