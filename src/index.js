@@ -35,7 +35,7 @@ var taskListArray = [];
 taskAll.addEventListener('click', writeTaskAll);
 taskToday.addEventListener('click', writeTaskToday);
 
-writeTaskAll();
+
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -48,6 +48,9 @@ function Task(title, description, dueDate, priority) {
 
 const task1 = new Task('Eating and Pooping', 'Exactly the name', 'June 5', 'high');
 const task2 = new Task('Playing Games', 'Yes', 'May 25', 'low');
+
+
+writeTaskAll();
 
 /*
 Get values from form fields then delete fields
@@ -125,8 +128,8 @@ function writeTaskAll() {
         taskListTableRow.innerHTML = `<td>${task.title}</td>
                                         <td>${task.dueDate}</td>
                                         <td>${task.priority}</td>
-                                        <td id="td-edit"><i class="fa-solid fa-pen-to-square"></i></td>
-                                        <td id="td-trash"><i class="fa-solid fa-trash-can"></i></td>`
+                                        <td><div class="td-edit"><i class="fa-solid fa-pen-to-square"></i></div></td>
+                                        <td><div class="td-trash"><i class="fa-solid fa-trash-can"></i></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
 
@@ -144,7 +147,7 @@ function writeTaskToday() {
     const tasksSection = document.querySelector('.tasks-section');
 
     const TaskListTable = document.createElement('table');
-    taskDiv.setAttribute('style', 'width: auto; height: auto; background-color: blue;')
+    TaskListTable.setAttribute('style', 'width: 50px; height: 50px; background-color: blue;')
     tasksSection.appendChild(TaskListTable);
 }
 
