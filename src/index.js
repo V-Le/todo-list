@@ -121,20 +121,21 @@ function writeTaskAll() {
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
-
-
+    
+    //Creating task list on page
     taskListArray.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
         taskListTableRow.innerHTML = `<td>${task.title}</td>
                                         <td>${task.dueDate}</td>
                                         <td>${task.priority}</td>
-                                        <td><div class="td-edit"><i class="fa-solid fa-pen-to-square"></i></div></td>
-                                        <td><div class="td-trash"><i class="fa-solid fa-trash-can"></i></div></td>`
+                                        <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
+                                        <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
 
-    //TaskListTable.setAttribute('style', 'width: 100%; height: auto background-color: red;')
-    //tasksSection.appendChild(taskListTable);
+    const addTaskBtn = document.createElement('tr');
+    addTaskBtn.innerHTML = '<button class="btn-add">Add Task</button>';
+    taskListTableBody.appendChild(addTaskBtn);
 }
 
 //function writeTaskToday()

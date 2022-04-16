@@ -44,6 +44,8 @@ main {
     display: flex;
 }
 
+
+
 /***** NAVAGATION BAR *****/
 nav {
     width: var(--nav-width-full);
@@ -121,7 +123,14 @@ thead tr th:nth-child(3) { width: 10%; }
 thead tr th:nth-child(4), thead th:nth-child(5) { width: 5%; }
 .td-edit, .td-trash { 
     display: flex;
-    justify-content: center; }
+    justify-content: center;
+}
+
+.btn-edit, .btn-trash, .btn-add {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
 
 
 
