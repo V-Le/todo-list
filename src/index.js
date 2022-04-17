@@ -21,7 +21,7 @@ FUNCTIONS
 
  */
 
-//import './styles/style.css';
+import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
 
