@@ -105,7 +105,12 @@ function clearSection() {
 function writeTaskAll() {
     clearSection();
 
-    const tasksSection = document.querySelector('.tasks-section');
+    const taskSection = document.querySelector('.tasks-section');
+
+    const addTaskBtn = document.createElement('button');
+    addTaskBtn.className = 'btn-addTask';
+    addTaskBtn.innerText = 'Add Task';
+    taskSection.appendChild(addTaskBtn);
 
     const taskListTable = document.createElement('table');
     taskListTable.innerHTML =   `<thead>
@@ -117,7 +122,7 @@ function writeTaskAll() {
                                         <th>Del</th>
                                     </tr>
                                 </thead>`;
-    tasksSection.appendChild(taskListTable);
+    taskSection.appendChild(taskListTable);
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
@@ -133,9 +138,7 @@ function writeTaskAll() {
         taskListTableBody.appendChild(taskListTableRow);
     });
 
-    const addTaskBtn = document.createElement('tr');
-    addTaskBtn.innerHTML = '<button class="btn-add">Add Task</button>';
-    taskListTableBody.appendChild(addTaskBtn);
+
 }
 
 //function writeTaskToday()

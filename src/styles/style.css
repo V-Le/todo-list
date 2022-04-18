@@ -88,10 +88,16 @@ h2 {
 /***** MAIN TASK CONTENT *****/
 .tasks-section {
     display: flex;
+    flex-direction: column;
     height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
     width: calc(100vw - var(--nav-width-full));
     padding: 100px;
     background-color: var(--primary-light);
+}
+
+.btn-addTask {
+    width: 100px;
+    margin: 10px 0;
 }
 
 table {
