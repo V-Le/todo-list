@@ -52,17 +52,37 @@ const task2 = new Task('Playing Games', 'Yes', 'May 25', 'low');
 
 writeTaskAll();
 
-/*
-Get values from form fields then delete fields
-    #title.value
-    #desc.value
-    #date.value
-    #priority.value
-        Low
-        Medium
-        High
-    send to factory function task(title, desc, date, priority)
 
+//Modal display functionality
+const modalContainer = document.querySelector('#modal-container');
+const addTaskBtn = document.querySelector('#btn-addTask');
+const closeTaskbtn = document.querySelector('#close-myForm');
+
+addTaskBtn.addEventListener('click', function() {
+    modalContainer.style.display = 'flex';
+});
+
+closeTaskbtn.addEventListener('click', function(){
+    modalContainer.style.display = 'none';
+});
+
+window.addEventListener('click', function(e) {
+    if (e.target == modalContainer) {
+        modalContainer.style.display = 'none';
+    }
+});
+
+//Get values from form fields then delete fields
+// #title.value
+// #desc.value
+// #date.value
+// #priority.value
+//     Low
+//     Medium
+//     High
+// send to factory function task(title, desc, date, priority)
+
+/*
 function displayTasks()
     forEach object, create and append child
     SELECTION-BOX  |  Task Title  |  Short Description  |  Date Due  |  Priority  |  EDIT  |  DELETE
@@ -92,8 +112,8 @@ function priorityStyling()
 function clearSection() {
     const tasksSection = document.querySelector('.tasks-section');
 
-    while (tasksSection.children.length > 0) {
-        tasksSection.children[0].remove();
+    while (tasksSection.children.length > 2) {
+        tasksSection.children[2].remove();
     }
 }
 
@@ -106,11 +126,8 @@ function writeTaskAll() {
     clearSection();
 
     const taskSection = document.querySelector('.tasks-section');
-
-    const addTaskBtn = document.createElement('button');
-    addTaskBtn.className = 'btn-addTask';
-    addTaskBtn.innerText = 'Add Task';
-    taskSection.appendChild(addTaskBtn);
+    const addTaskBtn = document.querySelector('#btn-addTask');
+    addTaskBtn.className = 'btn-addTask-show';
 
     const taskListTable = document.createElement('table');
     taskListTable.innerHTML =   `<thead>
@@ -149,6 +166,8 @@ function writeTaskToday() {
     clearSection();
     
     const tasksSection = document.querySelector('.tasks-section');
+    const addTaskBtn = document.querySelector('#btn-addTask');
+    addTaskBtn.className = 'btn-addTask-hide';
 
     const TaskListTable = document.createElement('table');
     TaskListTable.setAttribute('style', 'width: 50px; height: 50px; background-color: blue;')

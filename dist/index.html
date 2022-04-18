@@ -20,6 +20,22 @@
                 <button class="nav-button" id="task-projects"><i class="fa-solid fa-diagram-project"></i><h2>Projects</h2></button>
             </nav>
             <section class="tasks-section">
+                <div id="modal-container">
+                    <form id="myForm">
+                        <span id="close-myForm">&times;</span>
+                        <h2>Add a Task</h2>
+                        <input type="text" id="task-title" name="task-title" placeholder="Name of Task" required>
+                        <input type="text" id="task-description" name="task-description" placeholder="Description">
+                        <input type="date" id="task-dueDate" name="task-dueDate" required>
+                        <select name="task-priority" id="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                        <input type="button" id="task-submit" value="Submit">
+                    </form>
+                </div>
+                <button id="btn-addTask" class="btn-addTask-show">Add Task</button>
             </section>
         </main>
         <footer>
