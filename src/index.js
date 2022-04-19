@@ -32,8 +32,16 @@ const taskProjects = document.querySelector('#task-projects');
 
 var taskListArray = [];
 
-taskAll.addEventListener('click', writeTaskAll);
-taskToday.addEventListener('click', writeTaskToday);
+taskAll.addEventListener('click', () => { 
+    clearSection();
+    clearTableList();
+    writeTaskAll();
+});
+taskToday.addEventListener('click', () => {
+    clearSection();
+    clearTableList();
+    writeTaskToday();
+});
 
 
 
@@ -112,34 +120,25 @@ function priorityStyling()
 function clearSection() {
     const tasksSection = document.querySelector('.tasks-section');
 
-    while (tasksSection.children.length > 2) {
-        tasksSection.children[2].remove();
+    while (tasksSection.children.length > 3) {
+        tasksSection.children[3].remove();
     }
 }
 
+function clearTableList() {
+    const taskListTable = document.querySelector('#table-taskList');
+    taskListTable.removeChild(taskListTable.lastChild);
+}
+
 //function writeTaskAll()
-//    clearSection()
+//    clearSection() - Done
 //    date.sort()
-//    displayTask()
+//    displayTask() - Done
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    clearSection();
-
-    const taskSection = document.querySelector('.tasks-section');
     const addTaskBtn = document.querySelector('#btn-addTask');
+    const taskListTable = document.querySelector('#table-taskList');
     addTaskBtn.className = 'btn-addTask-show';
-
-    const taskListTable = document.createElement('table');
-    taskListTable.innerHTML =   `<thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Due Date</th>
-                                        <th>Priority</th>
-                                        <th>Edit</th>
-                                        <th>Del</th>
-                                    </tr>
-                                </thead>`;
-    taskSection.appendChild(taskListTable);
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
@@ -154,8 +153,6 @@ function writeTaskAll() {
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
-
-
 }
 
 //function writeTaskToday()
@@ -163,16 +160,28 @@ function writeTaskAll() {
 //    date.sort()
 //    displayTasks().filter() library with today's date
 function writeTaskToday() {
-    clearSection();
-    
-    const tasksSection = document.querySelector('.tasks-section');
     const addTaskBtn = document.querySelector('#btn-addTask');
+    const taskListTable = document.querySelector('#table-taskList');
     addTaskBtn.className = 'btn-addTask-hide';
 
-    const TaskListTable = document.createElement('table');
-    TaskListTable.setAttribute('style', 'width: 50px; height: 50px; background-color: blue;')
-    tasksSection.appendChild(TaskListTable);
+    const taskListTableBody = document.createElement('tbody');
+    taskListTable.appendChild(taskListTableBody);
+    
+    //Creating task list on page
+    taskListArray.forEach(function(task) {
+        const taskListTableRow = document.createElement('tr');
+        taskListTable.style.color = 'red';
+        taskListTableRow.innerHTML = `<td>${task.title}</td>
+                                        <td>${task.dueDate}</td>
+                                        <td>${task.priority}</td>
+                                        <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
+                                        <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
+        taskListTableBody.appendChild(taskListTableRow);
+    });
+
 }
+
+
 
 /*
 function writeTaskWeek()
