@@ -21,6 +21,7 @@ FUNCTIONS
 
  */
 
+import { compareAsc, format } from 'date-fns'
 import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
@@ -188,8 +189,10 @@ function writeTaskWeek()
     clearSection()
     date.sort()
     displayTask().filter() library with week range
-
-function date()
-    return date in readable format    
-
 */
+
+function date(date) {
+    return format(new Date(date), 'MM-yyyy-dd');
+}
+
+
