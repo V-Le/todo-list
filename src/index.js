@@ -21,7 +21,7 @@ FUNCTIONS
 
  */
 
-import { compareAsc, format } from 'date-fns'
+import { parseISO, compareAsc, format } from 'date-fns'
 import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
@@ -195,4 +195,6 @@ function date(date) {
     return format(new Date(date), 'MM-yyyy-dd');
 }
 
+const result = parseISO('2014-02-11T11:30:30')
+console.log(result)
 
