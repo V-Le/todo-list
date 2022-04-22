@@ -133,22 +133,21 @@ function clearTableList() {
     taskListTable.removeChild(taskListTable.lastChild);
 }
 
-//displayTask()
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    //Creating page Elements
     const addTaskBtn = document.querySelector('#btn-addTask');
-    const taskListTable = document.querySelector('#table-taskList');
     addTaskBtn.className = 'btn-addTask-show';
 
+    var sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
+    displayTask(sortedArrayByDateAsc);
+}
+
+function displayTask(tasks) {
+    const taskListTable = document.querySelector('#table-taskList');
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
 
-    //Sorting task list by date - Ascending
-    var sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
-
-    //Creating task list on page
-    sortedArrayByDateAsc.forEach(function(task) {
+    tasks.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
         taskListTableRow.innerHTML = `<td>${task.title}</td>
                                         <td>${dateFormat(task.dueDate)}</td>
