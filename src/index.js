@@ -21,7 +21,7 @@ FUNCTIONS
 
  */
 
-import { parseISO, compareAsc, format } from 'date-fns'
+import { parseISO, compareAsc, format, parse } from 'date-fns'
 import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
@@ -55,10 +55,12 @@ function Task(title, description, dueDate, priority) {
     taskListArray.push(this);
 }
 
-const task1 = new Task('Eating and Pooping', 'Exactly the name', 'June 5', 'high');
-const task2 = new Task('Playing Games', 'Yes', 'May 25', 'low');
-
-
+const task1 = new Task('Eating and Pooping', 'Exactly the name', '1989-03-27', 'high');
+const task2 = new Task('Cooking', 'No', '1985-08-21', 'medium');
+const task3 = new Task('Driving', 'No', '1985-02-21', 'high');
+const task4 = new Task('Groceries', 'No', '9940-05-04', 'low');
+const task5 = new Task('Cleaning', 'No', '2040-08-01', 'medium');
+const task6 = new Task('Playing Games', 'Yes', '1988-04-13', 'low');
 writeTaskAll();
 
 
@@ -143,12 +145,14 @@ function writeTaskAll() {
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
-    
+    //Sorting task list by date - Ascending
+    var sortDate = [...taskListArray].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate)));
+
     //Creating task list on page
-    taskListArray.forEach(function(task) {
+    sortDate.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
         taskListTableRow.innerHTML = `<td>${task.title}</td>
-                                        <td>${task.dueDate}</td>
+                                        <td>${date(task.dueDate)}</td>
                                         <td>${task.priority}</td>
                                         <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
@@ -192,9 +196,6 @@ function writeTaskWeek()
 */
 
 function date(date) {
-    return format(new Date(date), 'MM-yyyy-dd');
+    return format(new Date(date), 'MMM / dd / yyyy');
 }
-
-const result = parseISO('2014-02-11T11:30:30')
-console.log(result)
 
