@@ -34,12 +34,12 @@ const taskProjects = document.querySelector('#task-projects');
 var taskListArray = [];
 
 taskAll.addEventListener('click', () => { 
-    clearSection();
+    clearContentSection();
     clearTableList();
     writeTaskAll();
 });
 taskToday.addEventListener('click', () => {
-    clearSection();
+    clearContentSection();
     clearTableList();
     writeTaskToday();
 });
@@ -120,8 +120,8 @@ function priorityStyling()
 */
 
 //export default, imports into tasks.js, ./functions/clearSection.js
-function clearSection() {
-    const tasksSection = document.querySelector('.tasks-section');
+function clearContentSection() {
+    const tasksSection = document.querySelector('.content-section');
 
     while (tasksSection.children.length > 3) {
         tasksSection.children[3].remove();
@@ -133,7 +133,7 @@ function clearTableList() {
     taskListTable.removeChild(taskListTable.lastChild);
 }
 
-//date.sort(), displayTask()
+//displayTask()
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
     //Creating page Elements
@@ -145,13 +145,13 @@ function writeTaskAll() {
     taskListTable.appendChild(taskListTableBody);
 
     //Sorting task list by date - Ascending
-    var sortDate = sortArrayDateAsc(taskListArray);
+    var sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
 
     //Creating task list on page
-    sortDate.forEach(function(task) {
+    sortedArrayByDateAsc.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
         taskListTableRow.innerHTML = `<td>${task.title}</td>
-                                        <td>${date(task.dueDate)}</td>
+                                        <td>${dateFormat(task.dueDate)}</td>
                                         <td>${task.priority}</td>
                                         <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
@@ -190,11 +190,11 @@ function writeTaskWeek()
     displayTask().filter() library with week range
 */
 
-function sortArrayDateAsc(arrayList) {
+function sortArrayDateAscending(arrayList) {
     return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
 }
 
-function date(date) {
+function dateFormat(date) {
     return format(new Date(date), 'MMM / dd / yyyy');
 }
 

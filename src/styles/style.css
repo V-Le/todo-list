@@ -112,7 +112,7 @@ h2 {
 
 
 /***** MAIN TASK CONTENT *****/
-.tasks-section {
+.content-section {
     display: flex;
     flex-direction: column;
     height: calc(100vh - var(--header-height-full) - var(--footer-height-full));
