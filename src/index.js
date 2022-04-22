@@ -133,20 +133,19 @@ function clearTableList() {
     taskListTable.removeChild(taskListTable.lastChild);
 }
 
-//function writeTaskAll()
-//    clearSection() - Done
-//    date.sort()
-//    displayTask() - Done
+//date.sort(), displayTask()
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
+    //Creating page Elements
     const addTaskBtn = document.querySelector('#btn-addTask');
     const taskListTable = document.querySelector('#table-taskList');
     addTaskBtn.className = 'btn-addTask-show';
 
     const taskListTableBody = document.createElement('tbody');
     taskListTable.appendChild(taskListTableBody);
+
     //Sorting task list by date - Ascending
-    var sortDate = [...taskListArray].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate)));
+    var sortDate = sortArrayDateAsc(taskListArray);
 
     //Creating task list on page
     sortDate.forEach(function(task) {
@@ -175,7 +174,6 @@ function writeTaskToday() {
     //Creating task list on page
     taskListArray.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
-        taskListTable.style.color = 'red';
         taskListTableRow.innerHTML = `<td>${task.title}</td>
                                         <td>${task.dueDate}</td>
                                         <td>${task.priority}</td>
@@ -183,10 +181,7 @@ function writeTaskToday() {
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
-
 }
-
-
 
 /*
 function writeTaskWeek()
@@ -194,6 +189,10 @@ function writeTaskWeek()
     date.sort()
     displayTask().filter() library with week range
 */
+
+function sortArrayDateAsc(arrayList) {
+    return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
+}
 
 function date(date) {
     return format(new Date(date), 'MMM / dd / yyyy');
