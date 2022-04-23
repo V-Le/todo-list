@@ -21,7 +21,7 @@ FUNCTIONS
 
  */
 
-import { parseISO, compareAsc, format, parse } from 'date-fns'
+import { parseISO, compareAsc, format } from 'date-fns'
 import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
@@ -51,9 +51,9 @@ function Task(title, description, dueDate, priority) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
-    this.priority = priority
+    this.priority = priority;
     taskListArray.push(this);
-}
+};
 
 const task1 = new Task('Eating and Pooping', 'Exactly the name', '1989-03-27', 'high');
 const task2 = new Task('Cooking', 'No', '1985-08-21', 'medium');
@@ -125,13 +125,13 @@ function clearContentSection() {
 
     while (tasksSection.children.length > 3) {
         tasksSection.children[3].remove();
-    }
-}
+    };
+};
 
-function clearTableList() {
+function clearTableList() {;
     const taskListTable = document.querySelector('#table-taskList');
     taskListTable.removeChild(taskListTable.lastChild);
-}
+};
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
@@ -140,7 +140,7 @@ function writeTaskAll() {
 
     var sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
-}
+};
 
 function displayTask(tasks) {
     const taskListTable = document.querySelector('#table-taskList');
@@ -156,11 +156,9 @@ function displayTask(tasks) {
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
-}
+};
 
 //function writeTaskToday()
-//    clearSection()
-//    date.sort()
 //    displayTasks().filter() library with today's date
 function writeTaskToday() {
     const addTaskBtn = document.querySelector('#btn-addTask');
@@ -180,20 +178,24 @@ function writeTaskToday() {
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
-}
+};
 
-/*
-function writeTaskWeek()
-    clearSection()
-    date.sort()
-    displayTask().filter() library with week range
-*/
-
-function sortArrayDateAscending(arrayList) {
-    return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
-}
+//function writeTaskWeek()
+//    displayTask().filter() library with week range
 
 function dateFormat(date) {
     return format(new Date(date), 'MMM / dd / yyyy');
-}
+};
 
+function sortArrayDateAscending(arrayList) {
+    return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
+};
+
+function filterArrayDate(arrayList, startDate, endDate) {
+    return arrayList.filter((date) => {
+        let arrayDate = new Date(date.dueDate);
+        return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
+    });
+};
+
+//console.log(filterArrayDate(taskListArray, '1985-07-20', '9999-01-28'));
