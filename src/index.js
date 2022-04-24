@@ -55,12 +55,12 @@ function Task(title, description, dueDate, priority) {
     taskListArray.push(this);
 };
 
-const task1 = new Task('Eating and Pooping', 'Exactly the name', '1989-03-27', 'high');
-const task2 = new Task('Cooking', 'No', '1985-08-21', 'medium');
-const task3 = new Task('Driving', 'No', '1985-02-21', 'high');
-const task4 = new Task('Groceries', 'No', '9940-05-04', 'low');
-const task5 = new Task('Cleaning', 'No', '2040-08-01', 'medium');
-const task6 = new Task('Playing Games', 'Yes', '1988-04-13', 'low');
+const task1 = new Task('Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
+const task2 = new Task('Cooking', 'No', '2022-04-24', 'medium');
+const task3 = new Task('Driving', 'No', '2022-04-28', 'high');
+const task4 = new Task('Groceries', 'No', '2022-04-30', 'low');
+const task5 = new Task('Cleaning', 'No', '2022-04-01', 'medium');
+const task6 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
 writeTaskAll();
 
 
