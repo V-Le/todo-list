@@ -21,7 +21,7 @@ FUNCTIONS
 
  */
 
-import { parseISO, compareAsc, format } from 'date-fns'
+import { parseISO, compareAsc, format, startOfWeek, endOfWeek } from 'date-fns'
 import './styles/style.css';
 //import './components/tasks.js';
 //import writeline from './components/tasks.js';
@@ -199,3 +199,6 @@ function filterArrayDate(arrayList, startDate, endDate) {
 };
 
 //console.log(filterArrayDate(taskListArray, '1985-07-20', '9999-01-28'));
+console.log(startOfWeek(new Date()));
+console.log(endOfWeek(new Date()));
+
