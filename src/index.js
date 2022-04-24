@@ -211,7 +211,10 @@ function getStartOfDay() {
 }
 
 function getEndOfDay() {
-    return startOfDay(new Date());
+    return endOfDay(new Date());
 }
 
-//console.log();
+console.log(getStartOfWeek());
+console.log(getEndOfWeek());
+console.log(getStartOfDay());
+console.log(getEndOfDay());
