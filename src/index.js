@@ -133,15 +133,6 @@ function clearTableList() {;
     taskListTable.removeChild(taskListTable.lastChild);
 };
 
-//export default, imports into index.js, ./components/tasks.js
-function writeTaskAll() {
-    const addTaskBtn = document.querySelector('#btn-addTask');
-    addTaskBtn.className = 'btn-addTask-show';
-
-    var sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
-    displayTask(sortedArrayByDateAsc);
-};
-
 function displayTask(tasks) {
     const taskListTable = document.querySelector('#table-taskList');
     const taskListTableBody = document.createElement('tbody');
@@ -158,26 +149,24 @@ function displayTask(tasks) {
     });
 };
 
+//export default, imports into index.js, ./components/tasks.js
+function writeTaskAll() {
+    const addTaskBtn = document.querySelector('#btn-addTask');
+    addTaskBtn.className = 'btn-addTask-show';
+
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
+    displayTask(sortedArrayByDateAsc);
+};
+
 //function writeTaskToday()
 //    displayTasks().filter() library with today's date
 function writeTaskToday() {
     const addTaskBtn = document.querySelector('#btn-addTask');
-    const taskListTable = document.querySelector('#table-taskList');
     addTaskBtn.className = 'btn-addTask-hide';
 
-    const taskListTableBody = document.createElement('tbody');
-    taskListTable.appendChild(taskListTableBody);
-    
-    //Creating task list on page
-    taskListArray.forEach(function(task) {
-        const taskListTableRow = document.createElement('tr');
-        taskListTableRow.innerHTML = `<td>${task.title}</td>
-                                        <td>${task.dueDate}</td>
-                                        <td>${task.priority}</td>
-                                        <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
-                                        <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
-        taskListTableBody.appendChild(taskListTableRow);
-    });
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
+    let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
+    displayTask(sortedArrayByDayAsc);
 };
 
 //function writeTaskWeek()
@@ -198,14 +187,6 @@ function filterArrayDate(arrayList, startDate, endDate) {
     });
 };
 
-function getStartOfWeek() {
-    return startOfWeek(new Date());
-}
-
-function getEndOfWeek() {
-    return endOfWeek(new Date());
-}
-
 function getStartOfDay() {
     return startOfDay(new Date());
 }
@@ -214,7 +195,14 @@ function getEndOfDay() {
     return endOfDay(new Date());
 }
 
-console.log(getStartOfWeek());
-console.log(getEndOfWeek());
-console.log(getStartOfDay());
-console.log(getEndOfDay());
+function getStartOfWeek() {
+    return startOfWeek(new Date());
+}
+
+function getEndOfWeek() {
+    return endOfWeek(new Date());
+}
+
+var test = new Date('2022-04-24')
+console.log(new Date('04-24-2022'));
+console.log(test);
