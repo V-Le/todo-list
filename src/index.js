@@ -44,8 +44,6 @@ taskToday.addEventListener('click', () => {
     writeTaskToday();
 });
 
-
-
 //Task constructor
 function Task(title, description, dueDate, priority) {
     this.title = title;
@@ -56,10 +54,10 @@ function Task(title, description, dueDate, priority) {
 };
 
 const task1 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
-const task2 = new Task('Cooking', 'No', '2022-04-24', 'medium');
-const task3 = new Task('Driving', 'No', '2022-04-28', 'high');
-const task4 = new Task('Groceries', 'No', '2022-04-30', 'low');
-const task5 = new Task('Cleaning', 'No', '2022-04-01', 'medium');
+const task2 = new Task('Cooking', 'No', '2022-05-02', 'medium');
+const task3 = new Task('Driving', 'No', '2022-05-03', 'high');
+const task4 = new Task('Groceries', 'No', '2022-05-04', 'low');
+const task5 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
 const task6 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
 writeTaskAll();
 
@@ -83,21 +81,7 @@ window.addEventListener('click', function(e) {
     }
 });
 
-//Get values from form fields then delete fields
-// #title.value
-// #desc.value
-// #date.value
-// #priority.value
-//     Low
-//     Medium
-//     High
-// send to factory function task(title, desc, date, priority)
-
 /*
-function displayTasks()
-    forEach object, create and append child
-    SELECTION-BOX  |  Task Title  |  Short Description  |  Date Due  |  Priority  |  EDIT  |  DELETE
-
 function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
 
@@ -106,7 +90,6 @@ function deleteTask()
 
 function deleteCheckedTasks()
     
-
 function editTask()
     addEventListner for object to display with current values, then save new editted values
 
@@ -173,7 +156,7 @@ function writeTaskToday() {
 //    displayTask().filter() library with week range
 
 function dateFormat(date) {
-    return format(new Date(date), 'MMM / dd / yyyy');
+    return format(parseISO(date), 'MMM / dd / yyyy');
 };
 
 function sortArrayDateAscending(arrayList) {
@@ -182,7 +165,7 @@ function sortArrayDateAscending(arrayList) {
 
 function filterArrayDate(arrayList, startDate, endDate) {
     return arrayList.filter((date) => {
-        let arrayDate = new Date(date.dueDate);
+        let arrayDate = parseISO(date.dueDate);
         return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
     });
 };
@@ -202,7 +185,3 @@ function getStartOfWeek() {
 function getEndOfWeek() {
     return endOfWeek(new Date());
 }
-
-var test = new Date('2022-04-24')
-console.log(new Date('04-24-2022'));
-console.log(test);
