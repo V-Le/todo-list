@@ -116,7 +116,7 @@ function submitTasktoTaskList() {
 }
 
 
-/*
+/* Test
 function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
 
