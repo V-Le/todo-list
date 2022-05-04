@@ -90,6 +90,33 @@ window.addEventListener('click', function(e) {
     }
 });
 
+//Modal function
+const submitBtn = document.querySelector('#task-submit');
+
+
+submitBtn.addEventListener('click', () => {
+    submitTasktoTaskList();
+    clearContentSection();
+    clearTableList();
+    writeTaskAll();
+});
+
+function submitTasktoTaskList() {
+    let title = document.querySelector('#task-title').value;
+    let description = document.querySelector('#task-description').value;
+    let dueDate = document.querySelector('#task-dueDate').value;
+    let priority = document.querySelector('#task-priority').value;
+    
+    if (title == '' || description == '' || dueDate == '' ) {
+        console.log('Fail');
+    } else {
+        const task =  new Task(title, description, dueDate, priority);
+        const myForm = document.querySelector('#myForm').reset();
+        modalContainer.style.display = 'none';
+    }
+}
+
+
 /*
 function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
