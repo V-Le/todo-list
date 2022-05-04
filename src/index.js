@@ -38,11 +38,20 @@ taskAll.addEventListener('click', () => {
     clearTableList();
     writeTaskAll();
 });
+
 taskToday.addEventListener('click', () => {
     clearContentSection();
     clearTableList();
     writeTaskToday();
 });
+
+taskWeek.addEventListener('click', () => {
+    clearContentSection();
+    clearTableList();
+    writeTaskWeek();
+});
+
+
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -141,8 +150,7 @@ function writeTaskAll() {
     displayTask(sortedArrayByDateAsc);
 };
 
-//function writeTaskToday()
-//    displayTasks().filter() library with today's date
+//filter() library with today's date
 function writeTaskToday() {
     const addTaskBtn = document.querySelector('#btn-addTask');
     addTaskBtn.className = 'btn-addTask-hide';
@@ -152,8 +160,15 @@ function writeTaskToday() {
     displayTask(sortedArrayByDayAsc);
 };
 
-//function writeTaskWeek()
-//    displayTask().filter() library with week range
+//filter() library with week range
+function writeTaskWeek() {
+    const addTaskBtn = document.querySelector('#btn-addTask');
+    addTaskBtn.className = 'btn-addTask-hide';
+
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
+    let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
+    displayTask(sortedArrayByWeekyAsc);
+}
 
 function dateFormat(date) {
     return format(parseISO(date), 'MMM / dd / yyyy');
