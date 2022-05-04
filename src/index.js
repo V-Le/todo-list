@@ -93,7 +93,6 @@ window.addEventListener('click', function(e) {
 //Modal function
 const submitBtn = document.querySelector('#task-submit');
 
-
 submitBtn.addEventListener('click', () => {
     submitTasktoTaskList();
     clearContentSection();
