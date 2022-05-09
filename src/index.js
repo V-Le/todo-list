@@ -169,8 +169,10 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
+    
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
+    deleteTasks(writeTaskAll);
 };
 
 //filter() library with today's date
@@ -201,6 +203,21 @@ function filterArrayDate(arrayList, startDate, endDate) {
         return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
     });
 };
+
+function deleteTasks(writeTask) {
+    const deleteTaskBtn = document.querySelectorAll('.btn-trash');
+
+    for (let i=0; i <= deleteTaskBtn.length-1; i++) {
+        deleteTaskBtn[i].addEventListener('click', function() {
+            console.log(i)
+            taskListArray.splice(i,1);
+            clearContentSection();
+            clearTableList();
+            writeTask();
+        })
+    }
+
+}
 
 function getStartOfDay() {
     return startOfDay(new Date());
