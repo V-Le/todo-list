@@ -63,9 +63,9 @@ function Task(title, description, dueDate, priority) {
 };
 
 const task1 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
-const task2 = new Task('Cooking', 'No', '2022-05-02', 'medium');
-const task3 = new Task('Driving', 'No', '2022-05-03', 'high');
-const task4 = new Task('Groceries', 'No', '2022-05-04', 'low');
+const task2 = new Task('Cooking', 'No', '2022-05-09', 'medium');
+const task3 = new Task('Driving', 'No', '2022-05-09', 'high');
+const task4 = new Task('Groceries', 'No', '2022-05-10', 'low');
 const task5 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
 const task6 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
 writeTaskAll();
@@ -142,8 +142,8 @@ function priorityStyling()
 function clearContentSection() {
     const tasksSection = document.querySelector('.content-section');
 
-    while (tasksSection.children.length > 3) {
-        tasksSection.children[3].remove();
+    while (tasksSection.children.length > 2) {
+        tasksSection.children[2].remove();
     };
 };
 
@@ -170,18 +170,12 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    const addTaskBtn = document.querySelector('#btn-addTask');
-    addTaskBtn.className = 'btn-addTask-show';
-
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
 };
 
 //filter() library with today's date
 function writeTaskToday() {
-    const addTaskBtn = document.querySelector('#btn-addTask');
-    addTaskBtn.className = 'btn-addTask-hide';
-
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
@@ -189,9 +183,6 @@ function writeTaskToday() {
 
 //filter() library with week range
 function writeTaskWeek() {
-    const addTaskBtn = document.querySelector('#btn-addTask');
-    addTaskBtn.className = 'btn-addTask-hide';
-
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);

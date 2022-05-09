@@ -25,10 +25,16 @@ html {
 header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: var(--header-height-full);
     padding: 20px;
     color: var(--primary-light);
     background-color: var(--primary-dark);
+}
+
+.title-header {
+    display: flex;
+    align-items: center;
 }
 
 .fa-list-check {
