@@ -9,8 +9,14 @@
     </head>
     <body>
        <header>
-        <i class="fa-solid fa-list-check fa-2x"></i>
-           <h1>V Todo List...</h1>
+            <div class="title-header">
+               <i class="fa-solid fa-list-check fa-2x"></i>
+                <h1>V Todo List...</h1>
+            </div>
+            <div class="addTask-header">
+                <button id="btn-addTask" class="btn-addTask-show">Add Task</button>
+            </div>
+        
         </header>
        <main class="main-container">
             <nav>           
@@ -35,7 +41,7 @@
                         <input type="button" id="task-submit" value="Submit">
                     </form>
                 </div>
-                <button id="btn-addTask" class="btn-addTask-show">Add Task</button>
+                
                 <table id="table-taskList">
                     <thead>
                         <tr>
