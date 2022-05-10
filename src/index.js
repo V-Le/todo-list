@@ -68,6 +68,9 @@ const task2 = new Task('Driving', 'No', '2022-05-09', 'high');
 const task3 = new Task('Groceries', 'No', '2022-05-10', 'low');
 const task4 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
 const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
+const task6 = new Task('Swerv', 'No', '2022-05-10', 'low');
+const task7 = new Task('Counting', 'No', '2022-05-14', 'medium');
+const task8 = new Task('fishing', 'Yes', '2025-07-13', 'low');
 
 writeTaskAll();
 
@@ -170,7 +173,6 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
@@ -181,6 +183,7 @@ function writeTaskToday() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
+    deleteTasks(writeTaskToday, sortedArrayByDayAsc);
 };
 
 //filter() library with week range
@@ -188,6 +191,7 @@ function writeTaskWeek() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
+    deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
 }
 
 function dateFormat(date) {
