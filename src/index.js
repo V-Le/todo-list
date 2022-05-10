@@ -62,12 +62,13 @@ function Task(title, description, dueDate, priority) {
     taskListArray.push(this);
 };
 
-const task1 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
-const task2 = new Task('Cooking', 'No', '2022-05-09', 'medium');
-const task3 = new Task('Driving', 'No', '2022-05-09', 'high');
-const task4 = new Task('Groceries', 'No', '2022-05-10', 'low');
-const task5 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
-const task6 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
+const task0 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
+const task1 = new Task('Cooking', 'No', '2022-05-09', 'medium');
+const task2 = new Task('Driving', 'No', '2022-05-09', 'high');
+const task3 = new Task('Groceries', 'No', '2022-05-10', 'low');
+const task4 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
+const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
+
 writeTaskAll();
 
 
@@ -172,7 +173,7 @@ function writeTaskAll() {
     
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
-    deleteTasks(writeTaskAll);
+    deleteTasks(writeTaskAll, sortedArrayByDateAsc);
 };
 
 //filter() library with today's date
@@ -204,15 +205,13 @@ function filterArrayDate(arrayList, startDate, endDate) {
     });
 };
 
-
-//console.log(taskListArray.map(function(e) { return e.title;}).indexOf(taskListArray[3].title));
-function deleteTasks(writeTask) {
+function deleteTasks(writeTask, deleteArray) {
     const deleteTaskBtn = document.querySelectorAll('.btn-trash');
-
+    console.log(taskListArray);
     for (let i=0; i <= deleteTaskBtn.length-1; i++) {
         deleteTaskBtn[i].addEventListener('click', function() {
-            console.log(i)
-            taskListArray.splice(i,1);
+            let deleteTask = taskListArray.map(function(e) { return e.title;}).indexOf(deleteArray[i].title);
+            taskListArray.splice(deleteTask,1);
             clearContentSection();
             clearTableList();
             writeTask();
