@@ -204,6 +204,8 @@ function filterArrayDate(arrayList, startDate, endDate) {
     });
 };
 
+
+//console.log(taskListArray.map(function(e) { return e.title;}).indexOf(taskListArray[3].title));
 function deleteTasks(writeTask) {
     const deleteTaskBtn = document.querySelectorAll('.btn-trash');
 
@@ -215,6 +217,7 @@ function deleteTasks(writeTask) {
             clearTableList();
             writeTask();
         })
+        
     }
 
 }
