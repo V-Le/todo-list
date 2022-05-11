@@ -3,22 +3,9 @@ To do list
 ================
 FUNCTIONS
 .............
-***Base function tile***
-- ADD TASK
 --select multiple box
 - MARK AS COMPLETE
-- TITLE
-- DESCRIPTION (When clicked)
-- DUE DATE
---priority
 - EDIT
-- DELETE
- 
-***Navagation Bar Left***
-- today
-- this week
-- all
-
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
@@ -124,9 +111,6 @@ function submitTasktoTaskList() {
 function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
 
-function deleteTask()
-    addEventListener to splice library array by one object to delete
-
 function deleteCheckedTasks()
     
 function editTask()
@@ -202,6 +186,7 @@ function sortArrayDateAscending(arrayList) {
     return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
 };
 
+//filters the array dates depending on what is passed
 function filterArrayDate(arrayList, startDate, endDate) {
     return arrayList.filter((date) => {
         let arrayDate = parseISO(date.dueDate);
@@ -209,12 +194,13 @@ function filterArrayDate(arrayList, startDate, endDate) {
     });
 };
 
+//adds eventlistener to return index of taskListArray with current list and deletes
 function deleteTasks(writeTask, deleteArray) {
     const deleteTaskBtn = document.querySelectorAll('.btn-trash');
-    console.log(taskListArray);
+
     for (let i=0; i <= deleteTaskBtn.length-1; i++) {
         deleteTaskBtn[i].addEventListener('click', function() {
-            let deleteTask = taskListArray.map(function(e) { return e.title;}).indexOf(deleteArray[i].title);
+            let deleteTask = taskListArray.map(function(task) { return task.title;}).indexOf(deleteArray[i].title);
             taskListArray.splice(deleteTask,1);
             clearContentSection();
             clearTableList();
