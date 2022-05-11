@@ -83,15 +83,18 @@ window.addEventListener('click', function(e) {
 });
 
 //Modal function
-const submitBtn = document.querySelector('#task-submit');
 
-submitBtn.addEventListener('click', () => {
-    submitTasktoTaskList();
-    clearContentSection();
-    clearTableList();
-    writeTaskAll();
-    priorityStyling()
-});
+
+function submit(writeTask) {
+    const submitBtn = document.querySelector('#task-submit');
+    submitBtn.addEventListener('click', () => {
+        submitTasktoTaskList();
+        clearContentSection();
+        clearTableList();
+        writeTask();
+        priorityStyling()
+    });
+}
 
 function submitTasktoTaskList() {
     let title = document.querySelector('#task-title').value;
@@ -157,6 +160,7 @@ function writeTaskAll() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
+    submit(writeTaskAll);
 };
 
 //filter() library with today's date
@@ -165,6 +169,7 @@ function writeTaskToday() {
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
     deleteTasks(writeTaskToday, sortedArrayByDayAsc);
+    submit(writeTaskToday);
 };
 
 //filter() library with week range
@@ -173,6 +178,7 @@ function writeTaskWeek() {
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
     deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
+    submit(writeTaskWeek);
 }
 
 function dateFormat(date) {
