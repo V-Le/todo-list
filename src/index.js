@@ -18,6 +18,7 @@ const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
 const taskProjects = document.querySelector('#task-projects');
 
+
 var taskListArray = [];
 
 taskAll.addEventListener('click', () => { 
@@ -49,15 +50,15 @@ function Task(title, description, dueDate, priority) {
     taskListArray.push(this);
 };
 
-const task0 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'high');
-const task1 = new Task('Cooking', 'No', '2022-05-09', 'medium');
-const task2 = new Task('Driving', 'No', '2022-05-09', 'high');
-const task3 = new Task('Groceries', 'No', '2022-05-10', 'low');
-const task4 = new Task('Cleaning', 'No', '2022-05-03', 'medium');
-const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'low');
-const task6 = new Task('Swerv', 'No', '2022-05-10', 'low');
-const task7 = new Task('Counting', 'No', '2022-05-14', 'medium');
-const task8 = new Task('fishing', 'Yes', '2025-07-13', 'low');
+const task0 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'Urgent');
+const task1 = new Task('Cooking', 'No', '2022-05-09', 'Medium');
+const task2 = new Task('Driving', 'No', '2022-05-09', 'Urgent');
+const task3 = new Task('Groceries', 'No', '2022-05-10', 'Low');
+const task4 = new Task('Cleaning', 'No', '2022-05-03', 'Medium');
+const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'Low');
+const task6 = new Task('Swerv', 'No', '2022-05-10', 'Low');
+const task7 = new Task('Counting', 'No', '2022-05-14', 'Medium');
+const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
 
 writeTaskAll();
 
@@ -89,6 +90,7 @@ submitBtn.addEventListener('click', () => {
     clearContentSection();
     clearTableList();
     writeTaskAll();
+    priorityStyling()
 });
 
 function submitTasktoTaskList() {
@@ -104,6 +106,7 @@ function submitTasktoTaskList() {
         const myForm = document.querySelector('#myForm').reset();
         modalContainer.style.display = 'none';
     }
+    
 }
 
 
@@ -115,15 +118,8 @@ function deleteCheckedTasks()
     
 function editTask()
     addEventListner for object to display with current values, then save new editted values
-
-function priorityStyling()
-    if (priority == Low)
-        add class to style task background to green
-    if (priority == Medium)
-        add class to style task background to yellow
-    if (priority == High)
-        add class to style task background to red
 */
+
 
 //export default, imports into tasks.js, ./functions/clearSection.js
 function clearContentSection() {
@@ -148,11 +144,12 @@ function displayTask(tasks) {
         const taskListTableRow = document.createElement('tr');
         taskListTableRow.innerHTML = `<td>${task.title}</td>
                                         <td>${dateFormat(task.dueDate)}</td>
-                                        <td>${task.priority}</td>
+                                        <td id="td-priority">${task.priority}</td>
                                         <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
+    priorityStyling();
 };
 
 //export default, imports into index.js, ./components/tasks.js
@@ -191,6 +188,22 @@ function filterArrayDate(arrayList, startDate, endDate) {
     return arrayList.filter((date) => {
         let arrayDate = parseISO(date.dueDate);
         return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
+    });
+};
+
+function priorityStyling() {
+    const tdPriority = document.querySelectorAll('#td-priority');
+    
+    tdPriority.forEach((priorityText) => {
+        if (priorityText.innerText == 'Low') {
+            priorityText.setAttribute('style', 'background-color: #eff6ed;')
+        }
+        else if (priorityText.innerText == 'Medium') {
+            priorityText.setAttribute('style', 'background-color: #fff9e6;')
+        }
+        else if (priorityText.innerText == 'Urgent') {
+            priorityText.setAttribute('style', 'background-color: #f4c1c1;')
+        }
     });
 };
 
