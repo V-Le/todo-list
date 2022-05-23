@@ -18,28 +18,25 @@ const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
 //const taskProjects = document.querySelector('#task-projects');
 
-
 var taskListArray = [];
 
 taskAll.addEventListener('click', () => { 
     clearContentSection();
-    clearTableList();
+    //clearTableList();
     writeTaskAll();
 });
 
 taskToday.addEventListener('click', () => {
     clearContentSection();
-    clearTableList();
+    //clearTableList();
     writeTaskToday();
 });
 
 taskWeek.addEventListener('click', () => {
     clearContentSection();
-    clearTableList();
+    //clearTableList();
     writeTaskWeek();
 });
-
-
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -59,9 +56,6 @@ const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'Low');
 const task6 = new Task('Swerv', 'No', '2022-05-10', 'Low');
 const task7 = new Task('Counting', 'No', '2022-05-14', 'Medium');
 const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
-
-writeTaskAll();
-
 
 //Modal display functionality
 const modalContainer = document.querySelector('#modal-container');
@@ -83,14 +77,12 @@ window.addEventListener('click', function(e) {
 });
 
 //Modal function
-
-
+const submitBtn = document.querySelector('#task-submit');
 function submit(writeTask) {
-    const submitBtn = document.querySelector('#task-submit');
     submitBtn.addEventListener('click', () => {
         submitTasktoTaskList();
         clearContentSection();
-        clearTableList();
+        //clearTableList();
         writeTask();
         priorityStyling()
     });
@@ -109,34 +101,20 @@ function submitTasktoTaskList() {
         const myForm = document.querySelector('#myForm').reset();
         modalContainer.style.display = 'none';
     }
-    
 }
-
-
-/* Test
-function markAsComplete()
-    addEventListener to completion icon to add class to style task object greyed out
-
-function deleteCheckedTasks()
-    
-function editTask()
-    addEventListner for object to display with current values, then save new editted values
-*/
-
 
 //export default, imports into tasks.js, ./functions/clearSection.js
 function clearContentSection() {
-    const tasksSection = document.querySelector('.content-section');
-
-    while (tasksSection.children.length > 2) {
-        tasksSection.children[2].remove();
+    const tasksSection = document.querySelector('#table-taskList');
+    while (tasksSection.children.length > 1) {
+        tasksSection.children[1].remove();
     };
 };
 
-function clearTableList() {;
+/* function clearTableList() {;
     const taskListTable = document.querySelector('#table-taskList');
     taskListTable.removeChild(taskListTable.lastChild);
-};
+}; */
 
 function displayTask(tasks) {
     const taskListTable = document.querySelector('#table-taskList');
@@ -225,9 +203,7 @@ function deleteTasks(writeTask, deleteArray) {
             clearTableList();
             writeTask();
         })
-        
     }
-
 }
 
 function getStartOfDay() {
@@ -245,3 +221,5 @@ function getStartOfWeek() {
 function getEndOfWeek() {
     return endOfWeek(new Date());
 }
+
+writeTaskAll();
