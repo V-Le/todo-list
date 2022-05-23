@@ -5,7 +5,6 @@ FUNCTIONS
 .............
 --select multiple box
 - MARK AS COMPLETE
-- EDIT
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
@@ -16,7 +15,6 @@ import './styles/style.css';
 const taskAll = document.querySelector('#task-all');
 const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
-//const taskProjects = document.querySelector('#task-projects');
 
 var taskListArray = [];
 var page;
@@ -60,8 +58,14 @@ const modalContainer = document.querySelector('#modal-container');
 const addTaskBtn = document.querySelector('#btn-addTask');
 const closeTaskbtn = document.querySelector('#close-myForm');
 
+const submitBtn = document.querySelector('#task-add');
+const submitEdit = document.querySelector('#task-edit');
+
 addTaskBtn.addEventListener('click', function() {
     modalContainer.style.display = 'flex';
+    document.querySelector('#myForm').reset()
+    submitEdit.style.display = 'none';
+    submitBtn.style.display = 'flex';
 });
 
 closeTaskbtn.addEventListener('click', function(){
@@ -75,7 +79,7 @@ window.addEventListener('click', function(e) {
 });
 
 //Modal function
-const submitBtn = document.querySelector('#task-add');
+
 submitBtn.addEventListener('click', submitAll);
 
 function submitAll() {
@@ -100,8 +104,7 @@ function submitTasktoTaskList() {
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Fail');
     } else {
-        const task =  new Task(title, description, dueDate, priority);
-        const myForm = document.querySelector('#myForm').reset();
+        new Task(title, description, dueDate, priority);
         modalContainer.style.display = 'none';
     }
 }
@@ -137,7 +140,7 @@ function writeTaskAll() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
-    editTasks(writeTaskAll, sortedArrayByDateAsc)
+    editTasks(writeTaskAll, sortedArrayByDateAsc);
 };
 
 //filter() library with today's date
@@ -147,6 +150,7 @@ function writeTaskToday() {
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
     deleteTasks(writeTaskToday, sortedArrayByDayAsc);
+    editTasks(writeTaskToday, sortedArrayByDayAsc);
 };
 
 //filter() library with week range
@@ -156,6 +160,7 @@ function writeTaskWeek() {
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
     deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
+    editTasks(writeTaskWeek, sortedArrayByWeekyAsc);
 }
 
 function dateFormat(date) {
@@ -207,10 +212,11 @@ function deleteTasks(writeTask, deleteArray) {
 //adds eventlistener to return index of taskListArray with current list and edits
 function editTasks(writeTask, editArray) {
     const editTaskBtn = document.querySelectorAll('.btn-edit');
-    const submitEdit = document.querySelector('#task-edit');
 
     for (let i=0; i <= editTaskBtn.length-1; i++) {
         editTaskBtn[i].addEventListener('click', function() {
+            submitEdit.style.display = 'flex';
+            submitBtn.style.display = 'none';
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
 
             let title = document.querySelector('#task-title');
@@ -225,7 +231,7 @@ function editTasks(writeTask, editArray) {
             modalContainer.style.display = 'flex';
 
             submitEdit.addEventListener('click', function editClick() {
-                if (title == '' || description == '' || dueDate == '' ) {
+                if (title.value == '' || description.value == '' || dueDate.value == '' ) {
                     console.log('Fail');
                 } else {
                     taskListArray[editTask].title = document.querySelector('#task-title').value;
@@ -235,7 +241,7 @@ function editTasks(writeTask, editArray) {
                     submitEdit.removeEventListener('click', editClick);
                     clearContentSection();
                     writeTask();
-                    const myForm = document.querySelector('#myForm').reset();
+                    document.querySelector('#myForm').reset();
                     modalContainer.style.display = 'none';
                 }
             })        
