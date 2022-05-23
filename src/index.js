@@ -49,8 +49,8 @@ const task2 = new Task('Driving', 'No', '2022-05-09', 'Urgent');
 const task3 = new Task('Groceries', 'No', '2022-05-10', 'Low');
 const task4 = new Task('Cleaning', 'No', '2022-05-03', 'Medium');
 const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'Low');
-const task6 = new Task('Swerv', 'No', '2022-05-10', 'Low');
-const task7 = new Task('Counting', 'No', '2022-05-14', 'Medium');
+const task6 = new Task('Swerv', 'No', '2022-05-23', 'Low');
+const task7 = new Task('Counting', 'No', '2022-05-26', 'Medium');
 const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
 
 //Modal display functionality
@@ -85,13 +85,12 @@ function submitAll() {
     submitTasktoTaskList();
     clearContentSection();
 
-    switch (page) {
-        case 0:
-            writeTaskAll();
-        case 1:
-            writeTaskToday();
-        case 2:
-            writeTaskWeek();
+    if (page == 0) {
+        writeTaskAll();
+    } else if (page == 1) {
+        writeTaskToday();
+    } else if (page == 2) {
+        writeTaskWeek();
     }
     priorityStyling();
 }
@@ -137,7 +136,7 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    page = '0';
+    page = 0;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
@@ -146,7 +145,7 @@ function writeTaskAll() {
 
 //filter() library with today's date
 function writeTaskToday() {
-    page = '1';
+    page = 1;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
@@ -156,7 +155,7 @@ function writeTaskToday() {
 
 //filter() library with week range
 function writeTaskWeek() {
-    page = '2';
+    page = 1;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
