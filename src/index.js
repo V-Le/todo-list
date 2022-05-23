@@ -85,12 +85,14 @@ submitBtn.addEventListener('click', submitAll);
 function submitAll() {
     submitTasktoTaskList();
     clearContentSection();
-    if (page == 0) {
-        writeTaskAll();
-    } else if (page == 1) {
-        writeTaskToday();
-    } else if (page == 2) {
-        writeTaskWeek();
+
+    switch (page) {
+        case 0:
+            writeTaskAll();
+        case 1:
+            writeTaskToday();
+        case 2:
+            writeTaskWeek();
     }
     priorityStyling();
 }
