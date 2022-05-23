@@ -16,7 +16,7 @@ import './styles/style.css';
 const taskAll = document.querySelector('#task-all');
 const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
-const taskProjects = document.querySelector('#task-projects');
+//const taskProjects = document.querySelector('#task-projects');
 
 
 var taskListArray = [];
