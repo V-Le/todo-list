@@ -204,6 +204,7 @@ function deleteTasks(writeTask, deleteArray) {
     }
 }
 
+//adds eventlistener to return index of taskListArray with current list and edits
 function editTasks(writeTask, editArray) {
     const editTaskBtn = document.querySelectorAll('.btn-edit');
     const submitEdit = document.querySelector('#task-edit');
@@ -211,25 +212,33 @@ function editTasks(writeTask, editArray) {
     for (let i=0; i <= editTaskBtn.length-1; i++) {
         editTaskBtn[i].addEventListener('click', function() {
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
+
+            let title = document.querySelector('#task-title');
+            let description = document.querySelector('#task-description');
+            let dueDate = document.querySelector('#task-dueDate');
+            let priority = document.querySelector('#task-priority');
             
-            document.querySelector('#task-title').value = taskListArray[editTask].title;
-            document.querySelector('#task-description').value = taskListArray[editTask].description;
-            document.querySelector('#task-dueDate').value = taskListArray[editTask].dueDate;
-            document.querySelector('#task-priority').value = taskListArray[editTask].priority;
+            title.value = taskListArray[editTask].title;
+            description.value = taskListArray[editTask].description;
+            dueDate.value = taskListArray[editTask].dueDate;
+            priority.value = taskListArray[editTask].priority;
             modalContainer.style.display = 'flex';
 
-            submitEdit.addEventListener('click', () => {
-                taskListArray[editTask].title = document.querySelector('#task-title').value;
-                taskListArray[editTask].description = document.querySelector('#task-description').value;
-                taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
-                taskListArray[editTask].priority = document.querySelector('#task-priority').value;
-                clearContentSection();
-                writeTask();
-                console.log(taskListArray)
-                console.log(taskListArray[editTask])
-            })
-
-            
+            submitEdit.addEventListener('click', function editClick() {
+                if (title == '' || description == '' || dueDate == '' ) {
+                    console.log('Fail');
+                } else {
+                    taskListArray[editTask].title = document.querySelector('#task-title').value;
+                    taskListArray[editTask].description = document.querySelector('#task-description').value;
+                    taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
+                    taskListArray[editTask].priority = document.querySelector('#task-priority').value;
+                    submitEdit.removeEventListener('click', editClick);
+                    clearContentSection();
+                    writeTask();
+                    const myForm = document.querySelector('#myForm').reset();
+                    modalContainer.style.display = 'none';
+                }
+            })        
         })
     }
 }
