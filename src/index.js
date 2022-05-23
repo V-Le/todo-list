@@ -19,6 +19,7 @@ const taskWeek = document.querySelector('#task-week');
 //const taskProjects = document.querySelector('#task-projects');
 
 var taskListArray = [];
+var page;
 
 taskAll.addEventListener('click', () => { 
     clearContentSection();
@@ -78,14 +79,19 @@ window.addEventListener('click', function(e) {
 
 //Modal function
 const submitBtn = document.querySelector('#task-submit');
-function submit(writeTask) {
-    submitBtn.addEventListener('click', () => {
-        submitTasktoTaskList();
-        clearContentSection();
-        //clearTableList();
-        writeTask();
-        priorityStyling()
-    });
+submitBtn.addEventListener('click', submitAll);
+
+function submitAll() {
+    submitTasktoTaskList();
+    clearContentSection();
+    if (page == 0) {
+        writeTaskAll();
+    } else if (page == 1) {
+        writeTaskToday();
+    } else if (page == 2) {
+        writeTaskWeek()
+    }
+    priorityStyling();
 }
 
 function submitTasktoTaskList() {
@@ -93,7 +99,7 @@ function submitTasktoTaskList() {
     let description = document.querySelector('#task-description').value;
     let dueDate = document.querySelector('#task-dueDate').value;
     let priority = document.querySelector('#task-priority').value;
-    
+
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Fail');
     } else {
@@ -110,11 +116,6 @@ function clearContentSection() {
         tasksSection.children[1].remove();
     };
 };
-
-/* function clearTableList() {;
-    const taskListTable = document.querySelector('#table-taskList');
-    taskListTable.removeChild(taskListTable.lastChild);
-}; */
 
 function displayTask(tasks) {
     const taskListTable = document.querySelector('#table-taskList');
@@ -135,28 +136,28 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
+    page = '0';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
-    submit(writeTaskAll);
 };
 
 //filter() library with today's date
 function writeTaskToday() {
+    page = '1';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
     deleteTasks(writeTaskToday, sortedArrayByDayAsc);
-    submit(writeTaskToday);
 };
 
 //filter() library with week range
 function writeTaskWeek() {
+    page = '2';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
     deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
-    submit(writeTaskWeek);
 }
 
 function dateFormat(date) {
