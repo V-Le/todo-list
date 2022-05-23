@@ -214,7 +214,7 @@ function editTasks(writeTask, editArray) {
     const editTaskBtn = document.querySelectorAll('.btn-edit');
 
     for (let i=0; i <= editTaskBtn.length-1; i++) {
-        editTaskBtn[i].addEventListener('click', function() {
+        editTaskBtn[i].addEventListener('click', function () {
             submitEdit.style.display = 'flex';
             submitBtn.style.display = 'none';
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
