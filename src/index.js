@@ -20,6 +20,7 @@ const taskWeek = document.querySelector('#task-week');
 
 
 var taskListArray = [];
+var editDeleteTogle;
 
 taskAll.addEventListener('click', () => { 
     clearContentSection();
@@ -68,27 +69,28 @@ const modalContainer = document.querySelector('#modal-container');
 const addTaskBtn = document.querySelector('#btn-addTask');
 const closeTaskbtn = document.querySelector('#close-myForm');
 
+
 addTaskBtn.addEventListener('click', function() {
     modalContainer.style.display = 'flex';
 });
 
 closeTaskbtn.addEventListener('click', function(){
     modalContainer.style.display = 'none';
+    document.querySelector('#myForm').reset()
 });
 
 window.addEventListener('click', function(e) {
     if (e.target == modalContainer) {
         modalContainer.style.display = 'none';
+        document.querySelector('#myForm').reset()
     }
 });
 
 //Modal function
-
-
-function submit(writeTask) {
-    const submitBtn = document.querySelector('#task-submit');
-    submitBtn.addEventListener('click', () => {
-        submitTasktoTaskList();
+function submitAdd(writeTask) {
+    let modalAddTask = document.querySelector('#task-add');
+    modalAddTask.addEventListener('click', () => {
+        addTasktoTaskList();
         clearContentSection();
         clearTableList();
         writeTask();
@@ -96,7 +98,7 @@ function submit(writeTask) {
     });
 }
 
-function submitTasktoTaskList() {
+function addTasktoTaskList() {
     let title = document.querySelector('#task-title').value;
     let description = document.querySelector('#task-description').value;
     let dueDate = document.querySelector('#task-dueDate').value;
@@ -104,20 +106,62 @@ function submitTasktoTaskList() {
     
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Fail');
-    } else {
-        const task =  new Task(title, description, dueDate, priority);
-        const myForm = document.querySelector('#myForm').reset();
-        modalContainer.style.display = 'none';
     }
+    else {
+        const task =  new Task(title, description, dueDate, priority);
+        modalContainer.style.display = 'none';
+        document.querySelector('#myForm').reset()
+    }
+}
+
+function submitEdit(writeTask, editTask) {
+    let modalEditTask = document.querySelector('#task-edit');
+
+    let title = document.querySelector('#task-title').value;
+    let description = document.querySelector('#task-description').value;
+    let dueDate = document.querySelector('#task-dueDate').value;
+    let priority = document.querySelector('#task-priority').value;
+
+    title = taskListArray[editTask].title;
+    description = taskListArray[editTask].description;
+    dueDate = taskListArray[editTask].dueDate;
+    priority = taskListArray[editTask].priority;
+
+    modalEditTask.addEventListener('click', () => {
+        editTasktoTaskList(writeTask, editTask);
+        clearContentSection();
+        clearTableList();
+        writeTask();
+        priorityStyling()
+    });
+}
+
+function editTasktoTaskList(writeTask, editTask) {
+    console.log(taskListArray[editTask].title)
+
+    let title = document.querySelector('#task-title').value;
+    let description = document.querySelector('#task-description').value;
+    let dueDate = document.querySelector('#task-dueDate').value;
+    let priority = document.querySelector('#task-priority').value;
+
     
+    if (title == '' || description == '' || dueDate == '' ) {
+        console.log('Fail');
+    }
+    else {
+        taskListArray[editTask].title = title;
+        taskListArray[editTask].description = description;
+        taskListArray[editTask].dueDate = dueDate;
+        taskListArray[editTask].priority = priority;
+        modalContainer.style.display = 'none';
+        document.querySelector('#myForm').reset()
+    }
 }
 
 
 /* Test
 function markAsComplete()
     addEventListener to completion icon to add class to style task object greyed out
-
-function deleteCheckedTasks()
     
 function editTask()
     addEventListner for object to display with current values, then save new editted values
@@ -159,8 +203,9 @@ function displayTask(tasks) {
 function writeTaskAll() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
+    editTasks(writeTaskAll, sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
-    submit(writeTaskAll);
+    submitAdd(writeTaskAll);
 };
 
 //filter() library with today's date
@@ -168,8 +213,9 @@ function writeTaskToday() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
+    //editTasks(writeTaskToday, sortedArrayByDayAsc);
     deleteTasks(writeTaskToday, sortedArrayByDayAsc);
-    submit(writeTaskToday);
+    submitAdd(writeTaskToday);
 };
 
 //filter() library with week range
@@ -177,8 +223,9 @@ function writeTaskWeek() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
+    //editTasks(writeTaskWeek, sortedArrayByWeekyAsc);
     deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
-    submit(writeTaskWeek);
+    submitAdd(writeTaskWeek);
 }
 
 function dateFormat(date) {
@@ -227,7 +274,19 @@ function deleteTasks(writeTask, deleteArray) {
         })
         
     }
+}
 
+function editTasks(writeTask, editArray) {
+    const editTaskBtn = document.querySelectorAll('.btn-edit');
+
+    for (let i=0; i <= editTaskBtn.length-1; i++) {
+        editTaskBtn[i].addEventListener('click', function() { 
+            let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
+            modalContainer.style.display = 'flex';
+            submitEdit(writeTask, editTask)
+        })
+        
+    }
 }
 
 function getStartOfDay() {
