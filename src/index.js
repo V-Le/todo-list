@@ -3,9 +3,7 @@ To do list
 ================
 FUNCTIONS
 .............
---select multiple box
 - MARK AS COMPLETE
-- EDIT
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
@@ -18,9 +16,7 @@ const taskToday = document.querySelector('#task-today');
 const taskWeek = document.querySelector('#task-week');
 //const taskProjects = document.querySelector('#task-projects');
 
-
 var taskListArray = [];
-var editDeleteTogle;
 
 taskAll.addEventListener('click', () => { 
     clearContentSection();
@@ -62,7 +58,6 @@ const task7 = new Task('Counting', 'No', '2022-05-14', 'Medium');
 const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
 
 writeTaskAll();
-
 
 //Modal display functionality
 const modalContainer = document.querySelector('#modal-container');
@@ -116,35 +111,30 @@ function addTasktoTaskList() {
 
 function submitEdit(writeTask, editTask) {
     let modalEditTask = document.querySelector('#task-edit');
+    modalContainer.style.display = 'flex';
 
-    let title = document.querySelector('#task-title').value;
-    let description = document.querySelector('#task-description').value;
-    let dueDate = document.querySelector('#task-dueDate').value;
-    let priority = document.querySelector('#task-priority').value;
+    let title = document.querySelector('#task-title');
+    let description = document.querySelector('#task-description');
+    let dueDate = document.querySelector('#task-dueDate');
+    let priority = document.querySelector('#task-priority');
 
-    title = taskListArray[editTask].title;
-    description = taskListArray[editTask].description;
-    dueDate = taskListArray[editTask].dueDate;
-    priority = taskListArray[editTask].priority;
+    title.value = taskListArray[editTask].title;
+    description.value = taskListArray[editTask].description;
+    dueDate.value = taskListArray[editTask].dueDate;
+    priority.value = taskListArray[editTask].priority;
 
     modalEditTask.addEventListener('click', () => {
-        editTasktoTaskList(writeTask, editTask);
-        clearContentSection();
+        editTasktoTaskList(editTask, title.value, description.value, dueDate.value, priority.value);
+/*         clearContentSection();
         clearTableList();
         writeTask();
-        priorityStyling()
+        priorityStyling() */
     });
 }
 
-function editTasktoTaskList(writeTask, editTask) {
-    console.log(taskListArray[editTask].title)
+function editTasktoTaskList(editTask, title, description, dueDate, priority) {
+    //console.log(taskListArray[editTask].title)
 
-    let title = document.querySelector('#task-title').value;
-    let description = document.querySelector('#task-description').value;
-    let dueDate = document.querySelector('#task-dueDate').value;
-    let priority = document.querySelector('#task-priority').value;
-
-    
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Fail');
     }
@@ -157,16 +147,6 @@ function editTasktoTaskList(writeTask, editTask) {
         document.querySelector('#myForm').reset()
     }
 }
-
-
-/* Test
-function markAsComplete()
-    addEventListener to completion icon to add class to style task object greyed out
-    
-function editTask()
-    addEventListner for object to display with current values, then save new editted values
-*/
-
 
 //export default, imports into tasks.js, ./functions/clearSection.js
 function clearContentSection() {
@@ -282,7 +262,6 @@ function editTasks(writeTask, editArray) {
     for (let i=0; i <= editTaskBtn.length-1; i++) {
         editTaskBtn[i].addEventListener('click', function() { 
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
-            modalContainer.style.display = 'flex';
             submitEdit(writeTask, editTask)
         })
         
