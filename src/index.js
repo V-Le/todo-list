@@ -3,7 +3,9 @@ To do list
 ================
 FUNCTIONS
 .............
+--select multiple box
 - MARK AS COMPLETE
+- EDIT
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
@@ -17,26 +19,22 @@ const taskWeek = document.querySelector('#task-week');
 //const taskProjects = document.querySelector('#task-projects');
 
 var taskListArray = [];
+var page;
 
 taskAll.addEventListener('click', () => { 
     clearContentSection();
-    clearTableList();
     writeTaskAll();
 });
 
 taskToday.addEventListener('click', () => {
     clearContentSection();
-    clearTableList();
     writeTaskToday();
 });
 
 taskWeek.addEventListener('click', () => {
     clearContentSection();
-    clearTableList();
     writeTaskWeek();
 });
-
-
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -57,13 +55,10 @@ const task6 = new Task('Swerv', 'No', '2022-05-10', 'Low');
 const task7 = new Task('Counting', 'No', '2022-05-14', 'Medium');
 const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
 
-writeTaskAll();
-
 //Modal display functionality
 const modalContainer = document.querySelector('#modal-container');
 const addTaskBtn = document.querySelector('#btn-addTask');
 const closeTaskbtn = document.querySelector('#close-myForm');
-
 
 addTaskBtn.addEventListener('click', function() {
     modalContainer.style.display = 'flex';
@@ -71,95 +66,52 @@ addTaskBtn.addEventListener('click', function() {
 
 closeTaskbtn.addEventListener('click', function(){
     modalContainer.style.display = 'none';
-    document.querySelector('#myForm').reset()
 });
 
 window.addEventListener('click', function(e) {
     if (e.target == modalContainer) {
         modalContainer.style.display = 'none';
-        document.querySelector('#myForm').reset()
     }
 });
 
 //Modal function
-function submitAdd(writeTask) {
-    let modalAddTask = document.querySelector('#task-add');
-    modalAddTask.addEventListener('click', () => {
-        addTasktoTaskList();
-        clearContentSection();
-        clearTableList();
-        writeTask();
-        priorityStyling()
-    });
+const submitBtn = document.querySelector('#task-add');
+submitBtn.addEventListener('click', submitAll);
+
+function submitAll() {
+    submitTasktoTaskList();
+    clearContentSection();
+    if (page == 0) {
+        writeTaskAll();
+    } else if (page == 1) {
+        writeTaskToday();
+    } else if (page == 2) {
+        writeTaskWeek();
+    }
+    priorityStyling();
 }
 
-function addTasktoTaskList() {
+function submitTasktoTaskList() {
     let title = document.querySelector('#task-title').value;
     let description = document.querySelector('#task-description').value;
     let dueDate = document.querySelector('#task-dueDate').value;
     let priority = document.querySelector('#task-priority').value;
-    
+
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Fail');
-    }
-    else {
+    } else {
         const task =  new Task(title, description, dueDate, priority);
+        const myForm = document.querySelector('#myForm').reset();
         modalContainer.style.display = 'none';
-        document.querySelector('#myForm').reset()
-    }
-}
-
-function submitEdit(writeTask, editTask) {
-    let modalEditTask = document.querySelector('#task-edit');
-    modalContainer.style.display = 'flex';
-
-    let title = document.querySelector('#task-title');
-    let description = document.querySelector('#task-description');
-    let dueDate = document.querySelector('#task-dueDate');
-    let priority = document.querySelector('#task-priority');
-
-    title.value = taskListArray[editTask].title;
-    description.value = taskListArray[editTask].description;
-    dueDate.value = taskListArray[editTask].dueDate;
-    priority.value = taskListArray[editTask].priority;
-
-    modalEditTask.addEventListener('click', () => {
-        editTasktoTaskList(editTask, title.value, description.value, dueDate.value, priority.value);
-/*         clearContentSection();
-        clearTableList();
-        writeTask();
-        priorityStyling() */
-    });
-}
-
-function editTasktoTaskList(editTask, title, description, dueDate, priority) {
-    //console.log(taskListArray[editTask].title)
-
-    if (title == '' || description == '' || dueDate == '' ) {
-        console.log('Fail');
-    }
-    else {
-        taskListArray[editTask].title = title;
-        taskListArray[editTask].description = description;
-        taskListArray[editTask].dueDate = dueDate;
-        taskListArray[editTask].priority = priority;
-        modalContainer.style.display = 'none';
-        document.querySelector('#myForm').reset()
     }
 }
 
 //export default, imports into tasks.js, ./functions/clearSection.js
 function clearContentSection() {
-    const tasksSection = document.querySelector('.content-section');
-
-    while (tasksSection.children.length > 2) {
-        tasksSection.children[2].remove();
+    const tasksSection = document.querySelector('#table-taskList');
+    while (tasksSection.children.length > 1) {
+        tasksSection.children[1].remove();
     };
-};
-
-function clearTableList() {;
-    const taskListTable = document.querySelector('#table-taskList');
-    taskListTable.removeChild(taskListTable.lastChild);
 };
 
 function displayTask(tasks) {
@@ -181,31 +133,29 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
+    page = '0';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
-    editTasks(writeTaskAll, sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
-    submitAdd(writeTaskAll);
+    editTasks(writeTaskAll, sortedArrayByDateAsc)
 };
 
 //filter() library with today's date
 function writeTaskToday() {
+    page = '1';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
-    //editTasks(writeTaskToday, sortedArrayByDayAsc);
     deleteTasks(writeTaskToday, sortedArrayByDayAsc);
-    submitAdd(writeTaskToday);
 };
 
 //filter() library with week range
 function writeTaskWeek() {
+    page = '2';
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
-    //editTasks(writeTaskWeek, sortedArrayByWeekyAsc);
     deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
-    submitAdd(writeTaskWeek);
 }
 
 function dateFormat(date) {
@@ -249,22 +199,38 @@ function deleteTasks(writeTask, deleteArray) {
             let deleteTask = taskListArray.map(function(task) { return task.title;}).indexOf(deleteArray[i].title);
             taskListArray.splice(deleteTask,1);
             clearContentSection();
-            clearTableList();
             writeTask();
         })
-        
     }
 }
 
 function editTasks(writeTask, editArray) {
     const editTaskBtn = document.querySelectorAll('.btn-edit');
+    const submitEdit = document.querySelector('#task-edit');
 
     for (let i=0; i <= editTaskBtn.length-1; i++) {
-        editTaskBtn[i].addEventListener('click', function() { 
+        editTaskBtn[i].addEventListener('click', function() {
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
-            submitEdit(writeTask, editTask)
+            
+            document.querySelector('#task-title').value = taskListArray[editTask].title;
+            document.querySelector('#task-description').value = taskListArray[editTask].description;
+            document.querySelector('#task-dueDate').value = taskListArray[editTask].dueDate;
+            document.querySelector('#task-priority').value = taskListArray[editTask].priority;
+            modalContainer.style.display = 'flex';
+
+            submitEdit.addEventListener('click', () => {
+                taskListArray[editTask].title = document.querySelector('#task-title').value;
+                taskListArray[editTask].description = document.querySelector('#task-description').value;
+                taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
+                taskListArray[editTask].priority = document.querySelector('#task-priority').value;
+                clearContentSection();
+                writeTask();
+                console.log(taskListArray)
+                console.log(taskListArray[editTask])
+            })
+
+            
         })
-        
     }
 }
 
@@ -283,3 +249,5 @@ function getStartOfWeek() {
 function getEndOfWeek() {
     return endOfWeek(new Date());
 }
+
+writeTaskAll();
