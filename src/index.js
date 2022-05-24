@@ -1,35 +1,35 @@
 /**
 To do list
 ================
-FUNCTIONS
-.............
 --select multiple box
 - MARK AS COMPLETE
+- Add description field
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
 import './styles/style.css';
-//import './components/tasks.js';
-//import writeline from './components/tasks.js';
-
-const taskAll = document.querySelector('#task-all');
-const taskToday = document.querySelector('#task-today');
-const taskWeek = document.querySelector('#task-week');
 
 var taskListArray = [];
 var page;
 
-taskAll.addEventListener('click', () => { 
+const taskAllLink = document.querySelector('#task-all');
+const taskTodayLink = document.querySelector('#task-today');
+const taskWeekLink = document.querySelector('#task-week');
+
+taskAllLink.addEventListener('click', () => { 
+    page = 0;
     clearContentSection();
     writeTaskAll();
 });
 
-taskToday.addEventListener('click', () => {
+taskTodayLink.addEventListener('click', () => {
+    page = 1;
     clearContentSection();
     writeTaskToday();
 });
 
-taskWeek.addEventListener('click', () => {
+taskWeekLink.addEventListener('click', () => {
+    page = 2;
     clearContentSection();
     writeTaskWeek();
 });
@@ -43,32 +43,26 @@ function Task(title, description, dueDate, priority) {
     taskListArray.push(this);
 };
 
-const task0 = new Task('Eating and Pooping & Eating and Pooping', 'Exactly the name', '2021-02-20', 'Urgent');
-const task1 = new Task('Cooking', 'No', '2022-05-09', 'Medium');
-const task2 = new Task('Driving', 'No', '2022-05-09', 'Urgent');
-const task3 = new Task('Groceries', 'No', '2022-05-10', 'Low');
-const task4 = new Task('Cleaning', 'No', '2022-05-03', 'Medium');
-const task5 = new Task('Playing Games', 'Yes', '2025-07-13', 'Low');
-const task6 = new Task('Swerv', 'No', '2022-05-23', 'Low');
-const task7 = new Task('Counting', 'No', '2022-05-26', 'Medium');
-const task8 = new Task('fishing', 'Yes', '2025-07-13', 'Low');
+const task0 = new Task('Playing Games', 'Description - Playing Games', '2021-02-20', 'Urgent');
+const task1 = new Task('Cooking', 'Description - Cooking', '2022-05-24', 'Medium');
+const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent');
 
 //Modal display functionality
-const modalContainer = document.querySelector('#modal-container');
 const addTaskBtn = document.querySelector('#btn-addTask');
-const closeTaskbtn = document.querySelector('#close-myForm');
 
-const submitBtn = document.querySelector('#task-add');
-const submitEdit = document.querySelector('#task-edit');
+const modalContainer = document.querySelector('#modal-container');
+const modalCloseBtn = document.querySelector('#close-myForm');
+const modalSubmitBtn = document.querySelector('#task-add');
+const modalEditBtn = document.querySelector('#task-edit');
 
-addTaskBtn.addEventListener('click', function() {
+addTaskBtn.addEventListener('click', function addTaskClick() {
     modalContainer.style.display = 'flex';
     document.querySelector('#myForm').reset()
-    submitEdit.style.display = 'none';
-    submitBtn.style.display = 'flex';
+    modalEditBtn.style.display = 'none';
+    modalSubmitBtn.style.display = 'flex';
 });
 
-closeTaskbtn.addEventListener('click', function(){
+modalCloseBtn.addEventListener('click', function(){
     modalContainer.style.display = 'none';
 });
 
@@ -79,12 +73,14 @@ window.addEventListener('click', function(e) {
 });
 
 //Modal function
-submitBtn.addEventListener('click', submitAll);
-
-function submitAll() {
+modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
     submitTasktoTaskList();
     clearContentSection();
+    viewPage();
+    priorityStyling();
+});
 
+function viewPage() {
     if (page == 0) {
         writeTaskAll();
     } else if (page == 1) {
@@ -92,7 +88,6 @@ function submitAll() {
     } else if (page == 2) {
         writeTaskWeek();
     }
-    priorityStyling();
 }
 
 function submitTasktoTaskList() {
@@ -102,7 +97,8 @@ function submitTasktoTaskList() {
     let priority = document.querySelector('#task-priority').value;
 
     if (title == '' || description == '' || dueDate == '' ) {
-        console.log('Fail');
+        console.log('Submit failed');
+        alert('Please fill all required fields.')
     } else {
         new Task(title, description, dueDate, priority);
         modalContainer.style.display = 'none';
@@ -136,7 +132,6 @@ function displayTask(tasks) {
 
 //export default, imports into index.js, ./components/tasks.js
 function writeTaskAll() {
-    page = 0;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
     displayTask(sortedArrayByDateAsc);
     deleteTasks(writeTaskAll, sortedArrayByDateAsc);
@@ -145,7 +140,6 @@ function writeTaskAll() {
 
 //filter() library with today's date
 function writeTaskToday() {
-    page = 1;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
     displayTask(sortedArrayByDayAsc);
@@ -155,7 +149,6 @@ function writeTaskToday() {
 
 //filter() library with week range
 function writeTaskWeek() {
-    page = 1;
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
     displayTask(sortedArrayByWeekyAsc);
@@ -214,9 +207,9 @@ function editTasks(writeTask, editArray) {
     const editTaskBtn = document.querySelectorAll('.btn-edit');
 
     for (let i=0; i <= editTaskBtn.length-1; i++) {
-        editTaskBtn[i].addEventListener('click', function () {
-            submitEdit.style.display = 'flex';
-            submitBtn.style.display = 'none';
+        editTaskBtn[i].addEventListener('click', function editTaskBtnClick() {
+            modalEditBtn.style.display = 'flex';
+            modalSubmitBtn.style.display = 'none';
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
 
             let title = document.querySelector('#task-title');
@@ -230,7 +223,7 @@ function editTasks(writeTask, editArray) {
             priority.value = taskListArray[editTask].priority;
             modalContainer.style.display = 'flex';
 
-            submitEdit.addEventListener('click', function editClick() {
+            modalEditBtn.addEventListener('click', function modalEditBtnClick() {
                 if (title.value == '' || description.value == '' || dueDate.value == '' ) {
                     console.log('Fail');
                 } else {
@@ -238,7 +231,7 @@ function editTasks(writeTask, editArray) {
                     taskListArray[editTask].description = document.querySelector('#task-description').value;
                     taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
                     taskListArray[editTask].priority = document.querySelector('#task-priority').value;
-                    submitEdit.removeEventListener('click', editClick);
+                    modalEditBtn.removeEventListener('click', modalEditBtnClick);
                     clearContentSection();
                     writeTask();
                     document.querySelector('#myForm').reset();
