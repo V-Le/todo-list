@@ -51,13 +51,14 @@ const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent
 const addTaskBtn = document.querySelector('#btn-addTask');
 
 const modalContainer = document.querySelector('#modal-container');
+const modalForm = document.querySelector('#myForm');
 const modalCloseBtn = document.querySelector('#close-myForm');
 const modalSubmitBtn = document.querySelector('#task-add');
 const modalEditBtn = document.querySelector('#task-edit');
 
 addTaskBtn.addEventListener('click', function addTaskClick() {
+    modalForm.reset();
     modalContainer.style.display = 'flex';
-    document.querySelector('#myForm').reset();
     modalEditBtn.style.display = 'none';
     modalSubmitBtn.style.display = 'flex';
 });
@@ -107,17 +108,16 @@ function submitTask() {
     }
 }
 
+const tasksListTable = document.querySelector('#table-taskList');
 function clearTaskListTable() {
-    const tasksListTable = document.querySelector('#table-taskList');
     while (tasksListTable.children.length > 1) {
         tasksListTable.children[1].remove();
     };
 };
 
 function displayTask(tasks) {
-    const taskListTable = document.querySelector('#table-taskList');
     const taskListTableBody = document.createElement('tbody');
-    taskListTable.appendChild(taskListTableBody);
+    tasksListTable.appendChild(taskListTableBody);
 
     tasks.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
@@ -235,11 +235,12 @@ function editTasks(writeTask, editArray) {
                     modalEditBtn.removeEventListener('click', modalEditBtnClick);
                     clearTaskListTable();
                     writeTask();
-                    document.querySelector('#myForm').reset();
+                    modalForm.reset();
                     modalContainer.style.display = 'none';
                 }
-            })        
+            })   
         })
+        
     }
 }
 
