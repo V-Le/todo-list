@@ -6,7 +6,7 @@ To do list
 - Add description field
  */
 
-import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns'
+import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns';
 import './styles/style.css';
 
 var taskListArray = [];
@@ -18,19 +18,19 @@ const taskWeekLink = document.querySelector('#task-week');
 
 taskAllLink.addEventListener('click', () => { 
     page = 0;
-    clearContentSection();
+    clearTaskListTable();
     writeTaskAll();
 });
 
 taskTodayLink.addEventListener('click', () => {
     page = 1;
-    clearContentSection();
+    clearTaskListTable();
     writeTaskToday();
 });
 
 taskWeekLink.addEventListener('click', () => {
     page = 2;
-    clearContentSection();
+    clearTaskListTable();
     writeTaskWeek();
 });
 
@@ -57,7 +57,7 @@ const modalEditBtn = document.querySelector('#task-edit');
 
 addTaskBtn.addEventListener('click', function addTaskClick() {
     modalContainer.style.display = 'flex';
-    document.querySelector('#myForm').reset()
+    document.querySelector('#myForm').reset();
     modalEditBtn.style.display = 'none';
     modalSubmitBtn.style.display = 'flex';
 });
@@ -74,8 +74,8 @@ window.addEventListener('click', function(e) {
 
 //Modal function
 modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
-    submitTasktoTaskList();
-    clearContentSection();
+    submitTask();
+    clearTaskListTable();
     viewPage();
     priorityStyling();
 });
@@ -90,7 +90,7 @@ function viewPage() {
     }
 }
 
-function submitTasktoTaskList() {
+function submitTask() {
     let title = document.querySelector('#task-title').value;
     let description = document.querySelector('#task-description').value;
     let dueDate = document.querySelector('#task-dueDate').value;
@@ -98,18 +98,17 @@ function submitTasktoTaskList() {
 
     if (title == '' || description == '' || dueDate == '' ) {
         console.log('Submit failed');
-        alert('Please fill all required fields.')
+        alert('Please fill all fields.')
     } else {
         new Task(title, description, dueDate, priority);
         modalContainer.style.display = 'none';
     }
 }
 
-//export default, imports into tasks.js, ./functions/clearSection.js
-function clearContentSection() {
-    const tasksSection = document.querySelector('#table-taskList');
-    while (tasksSection.children.length > 1) {
-        tasksSection.children[1].remove();
+function clearTaskListTable() {
+    const tasksListTable = document.querySelector('#table-taskList');
+    while (tasksListTable.children.length > 1) {
+        tasksListTable.children[1].remove();
     };
 };
 
@@ -196,7 +195,7 @@ function deleteTasks(writeTask, deleteArray) {
         deleteTaskBtn[i].addEventListener('click', function() {
             let deleteTask = taskListArray.map(function(task) { return task.title;}).indexOf(deleteArray[i].title);
             taskListArray.splice(deleteTask,1);
-            clearContentSection();
+            clearTaskListTable();
             writeTask();
         })
     }
@@ -232,7 +231,7 @@ function editTasks(writeTask, editArray) {
                     taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
                     taskListArray[editTask].priority = document.querySelector('#task-priority').value;
                     modalEditBtn.removeEventListener('click', modalEditBtnClick);
-                    clearContentSection();
+                    clearTaskListTable();
                     writeTask();
                     document.querySelector('#myForm').reset();
                     modalContainer.style.display = 'none';
