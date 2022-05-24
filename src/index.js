@@ -11,10 +11,18 @@ import './styles/style.css';
 
 var taskListArray = [];
 var page;
-
 const taskAllLink = document.querySelector('#task-all');
 const taskTodayLink = document.querySelector('#task-today');
 const taskWeekLink = document.querySelector('#task-week');
+
+//Task constructor
+function Task(title, description, dueDate, priority) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+    taskListArray.push(this);
+};
 
 taskAllLink.addEventListener('click', () => { 
     page = 0;
@@ -34,22 +42,12 @@ taskWeekLink.addEventListener('click', () => {
     showTaskWeek();
 });
 
-//Task constructor
-function Task(title, description, dueDate, priority) {
-    this.title = title;
-    this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    taskListArray.push(this);
-};
-
 const task0 = new Task('Playing Games', 'Description - Playing Games', '2021-02-20', 'Urgent');
 const task1 = new Task('Cooking', 'Description - Cooking', '2022-05-24', 'Medium');
 const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent');
 
 //Modal display functionality
 const addTaskBtn = document.querySelector('#btn-addTask');
-
 const modalContainer = document.querySelector('#modal-container');
 const modalForm = document.querySelector('#myForm');
 const modalCloseBtn = document.querySelector('#close-myForm');
@@ -73,9 +71,8 @@ window.addEventListener('click', function(e) {
     }
 });
 
-//Modal function
 modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
-    submitTask();
+    submitTasks();
     clearTaskListTable();
     viewPage();
     priorityStyling();
@@ -93,7 +90,33 @@ function viewPage() {
     }
 }
 
-function submitTask() {
+function showTaskAll() {
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
+    appendTaskToTable(sortedArrayByDateAsc);
+    priorityStyling();
+    deleteTasks(showTaskAll, sortedArrayByDateAsc);
+    editTasks(showTaskAll, sortedArrayByDateAsc);
+};
+
+function showTaskToday() {
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
+    let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
+    appendTaskToTable(sortedArrayByDayAsc);
+    priorityStyling();
+    deleteTasks(showTaskToday, sortedArrayByDayAsc);
+    editTasks(showTaskToday, sortedArrayByDayAsc);
+};
+
+function showTaskWeek() {
+    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
+    let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
+    appendTaskToTable(sortedArrayByWeekyAsc);
+    priorityStyling();
+    deleteTasks(showTaskWeek, sortedArrayByWeekyAsc);
+    editTasks(showTaskWeek, sortedArrayByWeekyAsc);
+}
+
+function submitTasks() {
     let title = document.querySelector('#task-title').value;
     let description = document.querySelector('#task-description').value;
     let dueDate = document.querySelector('#task-dueDate').value;
@@ -130,48 +153,6 @@ function appendTaskToTable(tasks) {
     });
 };
 
-function showTaskAll() {
-    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
-    appendTaskToTable(sortedArrayByDateAsc);
-    priorityStyling();
-    deleteTasks(showTaskAll, sortedArrayByDateAsc);
-    editTasks(showTaskAll, sortedArrayByDateAsc);
-};
-
-function showTaskToday() {
-    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
-    let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
-    appendTaskToTable(sortedArrayByDayAsc);
-    priorityStyling();
-    deleteTasks(showTaskToday, sortedArrayByDayAsc);
-    editTasks(showTaskToday, sortedArrayByDayAsc);
-};
-
-function showTaskWeek() {
-    let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
-    let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
-    appendTaskToTable(sortedArrayByWeekyAsc);
-    priorityStyling();
-    deleteTasks(showTaskWeek, sortedArrayByWeekyAsc);
-    editTasks(showTaskWeek, sortedArrayByWeekyAsc);
-}
-
-function dateFormat(date) {
-    return format(parseISO(date), 'MMM / dd / yyyy');
-};
-
-function sortArrayDateAscending(arrayList) {
-    return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
-};
-
-//filters the array dates depending on what is passed
-function filterArrayDate(arrayList, startDate, endDate) {
-    return arrayList.filter((date) => {
-        let arrayDate = parseISO(date.dueDate);
-        return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
-    });
-};
-
 function priorityStyling() {
     const tdPriority = document.querySelectorAll('#td-priority');
     
@@ -193,9 +174,9 @@ function deleteTasks(writeTask, deleteArray) {
     const deleteTaskBtn = document.querySelectorAll('.btn-trash');
 
     for (let i=0; i <= deleteTaskBtn.length-1; i++) {
-        deleteTaskBtn[i].addEventListener('click', function() {
+        deleteTaskBtn[i].addEventListener('click', function deleteTaskBtnClick() {
             let deleteTask = taskListArray.map(function(task) { return task.title;}).indexOf(deleteArray[i].title);
-            taskListArray.splice(deleteTask,1);
+            taskListArray.splice(deleteTask, 1);
             clearTaskListTable();
             writeTask();
         })
@@ -242,6 +223,22 @@ function editTasks(writeTask, editArray) {
         
     }
 }
+
+//filters the array dates depending on what is passed
+function filterArrayDate(arrayList, startDate, endDate) {
+    return arrayList.filter((date) => {
+        let arrayDate = parseISO(date.dueDate);
+        return (arrayDate >= new Date(startDate) && arrayDate <= new Date(endDate));
+    });
+};
+
+function sortArrayDateAscending(arrayList) {
+    return ([...arrayList].sort((a, b) => compareAsc(parseISO(a.dueDate), parseISO(b.dueDate))));
+};
+
+function dateFormat(date) {
+    return format(parseISO(date), 'MMM / dd / yyyy');
+};
 
 function getStartOfDay() {
     return startOfDay(new Date());
