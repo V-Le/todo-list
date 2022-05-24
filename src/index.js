@@ -19,19 +19,19 @@ const taskWeekLink = document.querySelector('#task-week');
 taskAllLink.addEventListener('click', () => { 
     page = 0;
     clearTaskListTable();
-    writeTaskAll();
+    showTaskAll();
 });
 
 taskTodayLink.addEventListener('click', () => {
     page = 1;
     clearTaskListTable();
-    writeTaskToday();
+    showTaskToday();
 });
 
 taskWeekLink.addEventListener('click', () => {
     page = 2;
     clearTaskListTable();
-    writeTaskWeek();
+    showTaskWeek();
 });
 
 //Task constructor
@@ -83,13 +83,13 @@ modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
 
 function viewPage() {
     if (page == 0) {
-        writeTaskAll();
+        showTaskAll();
     } else if (page == 1) {
-        writeTaskToday();
+        showTaskToday();
     } else if (page == 2) {
-        writeTaskWeek();
+        showTaskWeek();
     } else {
-        writeTaskAll();
+        showTaskAll();
     }
 }
 
@@ -115,7 +115,7 @@ function clearTaskListTable() {
     };
 };
 
-function displayTask(tasks) {
+function appendTaskToTable(tasks) {
     const taskListTableBody = document.createElement('tbody');
     tasksListTable.appendChild(taskListTableBody);
 
@@ -128,33 +128,32 @@ function displayTask(tasks) {
                                         <td><div class="td-trash"><button class="btn-trash"><i class="fa-solid fa-trash-can"></i></button></div></td>`
         taskListTableBody.appendChild(taskListTableRow);
     });
-    priorityStyling();
 };
 
-//export default, imports into index.js, ./components/tasks.js
-function writeTaskAll() {
+function showTaskAll() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray);
-    displayTask(sortedArrayByDateAsc);
-    deleteTasks(writeTaskAll, sortedArrayByDateAsc);
-    editTasks(writeTaskAll, sortedArrayByDateAsc);
+    appendTaskToTable(sortedArrayByDateAsc);
+    priorityStyling();
+    deleteTasks(showTaskAll, sortedArrayByDateAsc);
+    editTasks(showTaskAll, sortedArrayByDateAsc);
 };
 
-//filter() library with today's date
-function writeTaskToday() {
+function showTaskToday() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByDayAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfDay(), getEndOfDay());
-    displayTask(sortedArrayByDayAsc);
-    deleteTasks(writeTaskToday, sortedArrayByDayAsc);
-    editTasks(writeTaskToday, sortedArrayByDayAsc);
+    appendTaskToTable(sortedArrayByDayAsc);
+    priorityStyling();
+    deleteTasks(showTaskToday, sortedArrayByDayAsc);
+    editTasks(showTaskToday, sortedArrayByDayAsc);
 };
 
-//filter() library with week range
-function writeTaskWeek() {
+function showTaskWeek() {
     let sortedArrayByDateAsc = sortArrayDateAscending(taskListArray)
     let sortedArrayByWeekyAsc = filterArrayDate(sortedArrayByDateAsc, getStartOfWeek(), getEndOfWeek());
-    displayTask(sortedArrayByWeekyAsc);
-    deleteTasks(writeTaskWeek, sortedArrayByWeekyAsc);
-    editTasks(writeTaskWeek, sortedArrayByWeekyAsc);
+    appendTaskToTable(sortedArrayByWeekyAsc);
+    priorityStyling();
+    deleteTasks(showTaskWeek, sortedArrayByWeekyAsc);
+    editTasks(showTaskWeek, sortedArrayByWeekyAsc);
 }
 
 function dateFormat(date) {
@@ -260,4 +259,4 @@ function getEndOfWeek() {
     return endOfWeek(new Date());
 }
 
-writeTaskAll();
+showTaskAll();
