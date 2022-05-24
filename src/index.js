@@ -87,6 +87,8 @@ function viewPage() {
         writeTaskToday();
     } else if (page == 2) {
         writeTaskWeek();
+    } else {
+        writeTaskAll();
     }
 }
 
