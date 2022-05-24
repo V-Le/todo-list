@@ -218,9 +218,8 @@ function editTasks(writeTask, editArray) {
                     modalForm.reset();
                     modalContainer.style.display = 'none';
                 }
-            })   
+            })
         })
-        
     }
 }
 
