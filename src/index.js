@@ -46,7 +46,7 @@ const task0 = new Task('Playing Games', 'Description - Playing Games', '2021-02-
 const task1 = new Task('Cooking', 'Description - Cooking', '2022-05-24', 'Medium');
 const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent');
 
-//Modal display functionality
+//Task Modal display functionality
 const addTaskBtn = document.querySelector('#btn-addTask');
 const modalContainer = document.querySelector('#modal-task');
 const modalForm = document.querySelector('#myForm');
@@ -78,6 +78,27 @@ modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
     priorityStyling();
 });
 
+//Description Modal display functionality
+const modalDescription = document.querySelector('#modal-description');
+const modalDescCloseBtn = document.querySelector('#close-myDesc');
+const modalDescTask = document.querySelector('table-description-task');
+const modalDescDueDate = document.querySelector('table-description-duedate');
+const modalDescPriority = document.querySelector('table-description-priority');
+const modalDescDesc = document.querySelector('table-description-desc');
+
+function showDescriptionModal(writeTask, showDesc) {
+    const tdTitles = document.querySelectorAll('#td-title');
+
+    for (let i = 0; i <= tdTitles.length-1; i++) {
+        tdTitles[i].addEventListener('click', function descrptionClick() {
+            let showTaskIndex = taskListArray.map(function(task) { return task.title;}).indexOf(showDesc[i].title);
+            modalDescTask.innerText = showDesc[i].title;
+            modalDescription.style.display = 'flex';
+            writeTask();
+        })
+    }
+}
+
 function viewPage() {
     if (page == 0) {
         showTaskAll();
@@ -96,6 +117,7 @@ function showTaskAll() {
     priorityStyling();
     deleteTasks(showTaskAll, sortedArrayByDateAsc);
     editTasks(showTaskAll, sortedArrayByDateAsc);
+    showDescriptionModal(showTaskAll, sortedArrayByDateAsc);
 };
 
 function showTaskToday() {

@@ -119,7 +119,7 @@ h2 {
 
 /***** DESCRIPTION MODAL *****/
 #modal-description {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
