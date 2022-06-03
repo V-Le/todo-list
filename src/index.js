@@ -48,7 +48,7 @@ const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent
 
 //Modal display functionality
 const addTaskBtn = document.querySelector('#btn-addTask');
-const modalContainer = document.querySelector('#modal-container');
+const modalContainer = document.querySelector('#modal-task');
 const modalForm = document.querySelector('#myForm');
 const modalCloseBtn = document.querySelector('#close-myForm');
 const modalSubmitBtn = document.querySelector('#task-add');
@@ -144,7 +144,7 @@ function appendTaskToTable(tasks) {
 
     tasks.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
-        taskListTableRow.innerHTML = `<td>${task.title}</td>
+        taskListTableRow.innerHTML = `<td id="td-title">${task.title}</td>
                                         <td>${dateFormat(task.dueDate)}</td>
                                         <td id="td-priority">${task.priority}</td>
                                         <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
@@ -221,6 +221,16 @@ function editTasks(writeTask, editArray) {
             })
         })
     }
+}
+
+//add eventlistener to return index of title and displays description from modal
+function displayDescription() {
+    const showDescription = document.querySelectorAll('#td-title');
+
+    for (let i = 0; i <= showDescription.length; i++) {
+        return;
+    }
+
 }
 
 //filters the array dates depending on what is passed

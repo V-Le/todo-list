@@ -94,7 +94,7 @@ h2 {
 }
 
 /***** TASK MODAL FORM *****/
-#modal-container {
+#modal-task {
     display: none;
     justify-content: center;
     align-items: center;
@@ -115,9 +115,32 @@ h2 {
     padding: 30px;
     border-radius: 10px;
     background: #ccc;
-
 }
 
+/***** DESCRIPTION MODAL *****/
+#modal-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#myDesc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    padding: 30px;
+    border-radius: 10px;
+    background: #ccc;
+}
 
 /***** MAIN TASK CONTENT *****/
 .content-section {
@@ -162,6 +185,9 @@ tbody, tr, td {
     overflow: hidden; 
     text-overflow: ellipsis;
 }
+
+.table-description-task-title { width: 125px; }
+.table-description-task { width: 100% }
 
 /** Title **/
 .table-title { width: 100%;}
