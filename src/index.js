@@ -44,34 +44,34 @@ taskWeekLink.addEventListener('click', () => {
 
 const task0 = new Task('Playing Games', 'Description - Playing Games', '2021-02-20', 'Urgent');
 const task1 = new Task('Cooking', 'Description - Cooking', '2022-05-24', 'Medium');
-const task2 = new Task('Driving', 'Description - Driving', '2022-05-27', 'Urgent');
+const task2 = new Task('Driving', 'Description - Driving', '2020-05-27', 'Urgent');
 
 //Task Modal display functionality
 const addTaskBtn = document.querySelector('#btn-addTask');
-const modalContainer = document.querySelector('#modal-task');
-const modalForm = document.querySelector('#myForm');
-const modalCloseBtn = document.querySelector('#close-myForm');
-const modalSubmitBtn = document.querySelector('#task-add');
-const modalEditBtn = document.querySelector('#task-edit');
+const modalTaskContainer = document.querySelector('#modal-task');
+const modalTaskForm = document.querySelector('#myForm');
+const modalTaskCloseBtn = document.querySelector('#close-myForm');
+const modalTaskSubmitBtn = document.querySelector('#task-add');
+const modalTaskEditBtn = document.querySelector('#task-edit');
 
 addTaskBtn.addEventListener('click', function addTaskClick() {
-    modalForm.reset();
-    modalContainer.style.display = 'flex';
-    modalEditBtn.style.display = 'none';
-    modalSubmitBtn.style.display = 'flex';
+    modalTaskForm.reset();
+    modalTaskContainer.style.display = 'flex';
+    modalTaskEditBtn.style.display = 'none';
+    modalTaskSubmitBtn.style.display = 'flex';
 });
 
-modalCloseBtn.addEventListener('click', function(){
-    modalContainer.style.display = 'none';
+modalTaskCloseBtn.addEventListener('click', function(){
+    modalTaskContainer.style.display = 'none';
 });
 
 window.addEventListener('click', function(e) {
-    if (e.target == modalContainer) {
-        modalContainer.style.display = 'none';
+    if (e.target == modalTaskContainer) {
+        modalTaskContainer.style.display = 'none';
     }
 });
 
-modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
+modalTaskSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
     submitTasks();
     clearTaskListTable();
     viewPage();
@@ -79,25 +79,37 @@ modalSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
 });
 
 //Description Modal display functionality
-const modalDescription = document.querySelector('#modal-description');
+const modalDescContainer = document.querySelector('#modal-description');
 const modalDescCloseBtn = document.querySelector('#close-myDesc');
-const modalDescTask = document.querySelector('table-description-task');
-const modalDescDueDate = document.querySelector('table-description-duedate');
-const modalDescPriority = document.querySelector('table-description-priority');
-const modalDescDesc = document.querySelector('table-description-desc');
+const modalDescTask = document.querySelector('#table-description-task');
+const modalDescDueDate = document.querySelector('#table-description-duedate');
+const modalDescPriority = document.querySelector('#table-description-priority');
+const modalDescDesc = document.querySelector('#table-description-desc');
 
-function showDescriptionModal(writeTask, showDesc) {
+//add eventlistener to return index of title and displays description from modal
+function showDescriptionModal(showDesc) {
     const tdTitles = document.querySelectorAll('#td-title');
 
     for (let i = 0; i <= tdTitles.length-1; i++) {
-        tdTitles[i].addEventListener('click', function descrptionClick() {
+        tdTitles[i].addEventListener('click', function descriptionClick() {
             let showTaskIndex = taskListArray.map(function(task) { return task.title;}).indexOf(showDesc[i].title);
-            modalDescTask.innerText = showDesc[i].title;
-            modalDescription.style.display = 'flex';
-            writeTask();
+            console.log(taskListArray[1].title)
+            //modalDescTask.innerText = taskListArray[showTaskIndex].title;
+            //modalDescTask.innerText = 'hello'
+            //modalDescContainer.style.display = 'flex';
         })
     }
 }
+
+modalDescCloseBtn.addEventListener('click', function(){
+    modalDescContainer.style.display = 'none';
+});
+
+window.addEventListener('click', function(e) {
+    if (e.target == modalDescContainer) {
+        modalDescContainer.style.display = 'none';
+    }
+});
 
 function viewPage() {
     if (page == 0) {
@@ -118,6 +130,7 @@ function showTaskAll() {
     deleteTasks(showTaskAll, sortedArrayByDateAsc);
     editTasks(showTaskAll, sortedArrayByDateAsc);
     showDescriptionModal(showTaskAll, sortedArrayByDateAsc);
+    showDescriptionModal(sortedArrayByDateAsc);
 };
 
 function showTaskToday() {
@@ -149,7 +162,7 @@ function submitTasks() {
         alert('Please fill all fields.')
     } else {
         new Task(title, description, dueDate, priority);
-        modalContainer.style.display = 'none';
+        modalTaskContainer.style.display = 'none';
     }
 }
 
@@ -211,8 +224,8 @@ function editTasks(writeTask, editArray) {
 
     for (let i=0; i <= editTaskBtn.length-1; i++) {
         editTaskBtn[i].addEventListener('click', function editTaskBtnClick() {
-            modalEditBtn.style.display = 'flex';
-            modalSubmitBtn.style.display = 'none';
+            modalTaskEditBtn.style.display = 'flex';
+            modalTaskSubmitBtn.style.display = 'none';
             let editTask = taskListArray.map(function(task) { return task.title;}).indexOf(editArray[i].title);
 
             let title = document.querySelector('#task-title');
@@ -224,9 +237,9 @@ function editTasks(writeTask, editArray) {
             description.value = taskListArray[editTask].description;
             dueDate.value = taskListArray[editTask].dueDate;
             priority.value = taskListArray[editTask].priority;
-            modalContainer.style.display = 'flex';
+            modalTaskContainer.style.display = 'flex';
 
-            modalEditBtn.addEventListener('click', function modalEditBtnClick() {
+            modalTaskEditBtn.addEventListener('click', function modalTaskEditBtnClick() {
                 if (title.value == '' || description.value == '' || dueDate.value == '' ) {
                     console.log('Fail');
                 } else {
@@ -234,25 +247,15 @@ function editTasks(writeTask, editArray) {
                     taskListArray[editTask].description = document.querySelector('#task-description').value;
                     taskListArray[editTask].dueDate = document.querySelector('#task-dueDate').value;
                     taskListArray[editTask].priority = document.querySelector('#task-priority').value;
-                    modalEditBtn.removeEventListener('click', modalEditBtnClick);
+                    modalTaskEditBtn.removeEventListener('click', modalTaskEditBtnClick);
                     clearTaskListTable();
                     writeTask();
-                    modalForm.reset();
-                    modalContainer.style.display = 'none';
+                    modalTaskForm.reset();
+                    modalTaskContainer.style.display = 'none';
                 }
             })
         })
     }
-}
-
-//add eventlistener to return index of title and displays description from modal
-function displayDescription() {
-    const showDescription = document.querySelectorAll('#td-title');
-
-    for (let i = 0; i <= showDescription.length; i++) {
-        return;
-    }
-
 }
 
 //filters the array dates depending on what is passed
