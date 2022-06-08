@@ -140,6 +140,7 @@ function showTaskToday() {
     priorityStyling();
     deleteTasks(showTaskToday, sortedArrayByDayAsc);
     editTasks(showTaskToday, sortedArrayByDayAsc);
+    showDescriptionModal(sortedArrayByDayAsc);
 };
 
 function showTaskWeek() {
@@ -149,6 +150,7 @@ function showTaskWeek() {
     priorityStyling();
     deleteTasks(showTaskWeek, sortedArrayByWeekyAsc);
     editTasks(showTaskWeek, sortedArrayByWeekyAsc);
+    showDescriptionModal(sortedArrayByWeekyAsc);
 }
 
 function submitTasks() {
@@ -179,7 +181,7 @@ function appendTaskToTable(tasks) {
 
     tasks.forEach(function(task) {
         const taskListTableRow = document.createElement('tr');
-        taskListTableRow.innerHTML = `<td id="td-title">${task.title}</td>
+        taskListTableRow.innerHTML = `<td><i id="td-title" class="fa-solid fa-circle-info"></i> ${task.title}</td>
                                         <td>${dateFormat(task.dueDate)}</td>
                                         <td id="td-priority">${task.priority}</td>
                                         <td><div class="td-edit"><button class="btn-edit"><i class="fa-solid fa-pen-to-square"></i></button></div></td>
