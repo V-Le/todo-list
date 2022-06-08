@@ -81,10 +81,10 @@ modalTaskSubmitBtn.addEventListener('click', function modalSubmitBtnClick() {
 //Description Modal display functionality
 const modalDescContainer = document.querySelector('#modal-description');
 const modalDescCloseBtn = document.querySelector('#close-myDesc');
-const modalDescTask = document.querySelector('#table-description-task');
-const modalDescDueDate = document.querySelector('#table-description-duedate');
-const modalDescPriority = document.querySelector('#table-description-priority');
-const modalDescDesc = document.querySelector('#table-description-desc');
+const modalDescTask = document.querySelector('.table-description-task');
+const modalDescDueDate = document.querySelector('.table-description-duedate');
+const modalDescPriority = document.querySelector('.table-description-priority');
+const modalDescDesc = document.querySelector('.table-description-desc');
 
 //add eventlistener to return index of title and displays description from modal
 function showDescriptionModal(showDesc) {
@@ -93,10 +93,11 @@ function showDescriptionModal(showDesc) {
     for (let i = 0; i <= tdTitles.length-1; i++) {
         tdTitles[i].addEventListener('click', function descriptionClick() {
             let showTaskIndex = taskListArray.map(function(task) { return task.title;}).indexOf(showDesc[i].title);
-            console.log(taskListArray[1].title)
-            //modalDescTask.innerText = taskListArray[showTaskIndex].title;
-            //modalDescTask.innerText = 'hello'
-            //modalDescContainer.style.display = 'flex';
+            modalDescTask.innerText = taskListArray[showTaskIndex].title;
+            modalDescDueDate.innerText = taskListArray[showTaskIndex].dueDate;
+            modalDescPriority.innerText = taskListArray[showTaskIndex].priority;
+            modalDescDesc.innerText = taskListArray[showTaskIndex].description;
+            modalDescContainer.style.display = 'flex';
         })
     }
 }
@@ -129,7 +130,6 @@ function showTaskAll() {
     priorityStyling();
     deleteTasks(showTaskAll, sortedArrayByDateAsc);
     editTasks(showTaskAll, sortedArrayByDateAsc);
-    showDescriptionModal(showTaskAll, sortedArrayByDateAsc);
     showDescriptionModal(sortedArrayByDateAsc);
 };
 
