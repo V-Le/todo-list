@@ -3,17 +3,24 @@ To do list
 ================
 --select multiple box
 - MARK AS COMPLETE
-- Add description field
  */
 
 import { parseISO, compareAsc, format, startOfWeek, endOfWeek, startOfDay, endOfDay } from 'date-fns';
 import './styles/style.css';
 
-var taskListArray = [];
+
 var page;
 const taskAllLink = document.querySelector('#task-all');
 const taskTodayLink = document.querySelector('#task-today');
 const taskWeekLink = document.querySelector('#task-week');
+
+//Creating LocalStorage
+if (localStorage.getItem('taskListArray') == null) {
+    var taskListArray = [];
+} else {
+    const taskFromStorage = JSON.parse(localStorage.getItem('taskListArray'));
+    taskListArray = taskFromStorage;
+}
 
 //Task constructor
 function Task(title, description, dueDate, priority) {
@@ -22,6 +29,7 @@ function Task(title, description, dueDate, priority) {
     this.dueDate = dueDate;
     this.priority = priority;
     taskListArray.push(this);
+    localStorage.setItem('taskListArray', JSON.stringify(taskListArray));
 };
 
 taskAllLink.addEventListener('click', () => { 
@@ -41,10 +49,6 @@ taskWeekLink.addEventListener('click', () => {
     clearTaskListTable();
     showTaskWeek();
 });
-
-const task0 = new Task('Playing Games', 'Description - Playing Games', '2021-02-20', 'Urgent');
-const task1 = new Task('Cooking', 'Description - Cooking', '2022-05-24', 'Medium');
-const task2 = new Task('Driving', 'Description - Driving', '2020-05-27', 'Urgent');
 
 //Task Modal display functionality
 const addTaskBtn = document.querySelector('#btn-addTask');
@@ -216,6 +220,7 @@ function deleteTasks(writeTask, deleteArray) {
             taskListArray.splice(deleteTask, 1);
             clearTaskListTable();
             writeTask();
+            localStorage.setItem('taskListArray', JSON.stringify(taskListArray));
         })
     }
 }
@@ -254,6 +259,7 @@ function editTasks(writeTask, editArray) {
                     writeTask();
                     modalTaskForm.reset();
                     modalTaskContainer.style.display = 'none';
+                    localStorage.setItem('taskListArray', JSON.stringify(taskListArray));
                 }
             })
         })
