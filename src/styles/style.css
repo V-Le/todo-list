@@ -51,8 +51,6 @@ main {
     display: flex;
 }
 
-
-
 /***** NAVAGATION BAR *****/
 nav {
     width: var(--nav-width-full);
